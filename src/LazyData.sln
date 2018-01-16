@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyData", "LazyData\LazyData.csproj", "{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyData.Tests", "LazyData.Tests\LazyData.Tests.csproj", "{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
