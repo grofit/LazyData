@@ -37,7 +37,7 @@ namespace LazyData.Serialization
 
         public virtual T Deserialize<T>(DataObject data) where T : new()
         { return (T)Deserialize(data); }
-
+        
         protected IList CreateCollectionFromMapping(CollectionMapping mapping, int count)
         {
             if (mapping.IsArray)

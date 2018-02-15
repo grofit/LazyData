@@ -7,18 +7,16 @@ using LazyData.Serialization.Json;
 using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
-using NUnit.Framework;
+using Xunit;
 
 namespace LazyData.Tests.Serialization
 {
-    [TestFixture]
     public class DynamicModelSerializationTests
     {
         private IMappingRegistry _mappingRegistry;
         private ITypeCreator _typeCreator;
 
-        [SetUp]
-        public void Setup()
+        public DynamicModelSerializationTests()
         {
             _typeCreator = new TypeCreator();
 
@@ -27,7 +25,7 @@ namespace LazyData.Tests.Serialization
             _mappingRegistry = new MappingRegistry(mapper);
         }
         
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_with_json()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -43,7 +41,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_into_existing_object_with_json()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -60,7 +58,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, existingInstance);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_with_binary()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -76,7 +74,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_into_existing_object_with_binary()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -93,7 +91,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, existingInstance);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_with_xml()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -109,7 +107,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_dynamic_data_into_existing_object_with_xml()
         {
             var model = SerializationTestHelper.GeneratePopulatedDynamicTypesModel();
@@ -126,7 +124,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertPopulatedDynamicTypesData(model, existingInstance);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_with_json()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();
@@ -142,7 +140,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AsserNulledDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_into_existing_object_with_json()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();
@@ -159,7 +157,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AsserNulledDynamicTypesData(model, existingInstance);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_with_binary()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();
@@ -175,7 +173,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AsserNulledDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_into_existing_object_with_binary()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();
@@ -192,7 +190,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AsserNulledDynamicTypesData(model, existingInstance);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_with_xml()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();
@@ -208,7 +206,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AsserNulledDynamicTypesData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_dynamic_data_into_existing_object_with_xml()
         {
             var model = SerializationTestHelper.GenerateNulledDynamicTypesModel();

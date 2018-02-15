@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LazyData\LazyData.csproj">
+      <Project>{8AE4F137-FCFB-4B1C-B8E0-CE6CF98EE3D9}</Project>
+      <Name>LazyData</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -1,91 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5ED627D1-E9FE-485A-BF7B-45E97DC81FDC}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LazyData.Tests</RootNamespace>
-    <AssemblyName>LazyData.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\SerializationTestHelper.cs" />
-    <Compile Include="Helpers\TypeAssertionHelper.cs" />
-    <Compile Include="Models\B.cs" />
-    <Compile Include="Models\C.cs" />
-    <Compile Include="Models\ComplexModel.cs" />
-    <Compile Include="Models\D.cs" />
-    <Compile Include="Models\DynamicTypesModel.cs" />
-    <Compile Include="Models\E.cs" />
-    <Compile Include="Models\NullableTypesModel.cs" />
-    <Compile Include="Models\SomeTypes.cs" />
-    <Compile Include="PerformanceTest\ComplexModelList.cs" />
-    <Compile Include="PerformanceTest\DynamicModelList.cs" />
-    <Compile Include="PerformanceTest\PerformanceScenarios.cs" />
-    <Compile Include="PerformanceTest\Person.cs" />
-    <Compile Include="PerformanceTest\PersonList.cs" />
-    <Compile Include="PerformanceTest\Sex.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\DynamicModelSerializationTests.cs" />
-    <Compile Include="Serialization\NullableModelSerializationTests.cs" />
-    <Compile Include="Serialization\NulledModelSerializationTests.cs" />
-    <Compile Include="Serialization\PopulatedModelSerializationTests.cs" />
-    <Compile Include="TypeMapper\DefaultTypeMapperTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\LazyData.SuperLazy\LazyData.SuperLazy.csproj">
+      <Project>{9ADF5C4D-B71B-46E8-8811-D855259C79BB}</Project>
+      <Name>LazyData.SuperLazy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LazyData\LazyData.csproj">
-      <Project>{7BA9E2BF-9978-428E-AEC5-A040F3E86AB7}</Project>
-      <Name>Serilazy</Name>
+      <Project>{8AE4F137-FCFB-4B1C-B8E0-CE6CF98EE3D9}</Project>
+      <Name>LazyData</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

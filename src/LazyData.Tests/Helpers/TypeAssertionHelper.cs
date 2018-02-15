@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using LazyData.Mappings;
 using LazyData.Tests.Models;
-using NUnit.Framework;
+using Assert = LazyData.Tests.Extensions.AssertExtensions;
 
 namespace LazyData.Tests.Helpers
 {
@@ -10,185 +10,185 @@ namespace LazyData.Tests.Helpers
     {
         public static void AssertComplexModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(7));
+            Assert.Equal(7, mappings.Count);
 
             var testValueMapping = mappings[0] as PropertyMapping;
-            Assert.That(testValueMapping.Type, Is.EqualTo(typeof(string)));
-            Assert.That(testValueMapping.LocalName, Is.EqualTo("TestValue"));
-            Assert.That(testValueMapping.MetaData, Is.Empty);
+            Assert.IsRuntimeType<string>(testValueMapping.Type);
+            Assert.Equal("TestValue", testValueMapping.LocalName);
+            Assert.Empty(testValueMapping.MetaData);
 
             var nestedValueMapping = mappings[1] as NestedMapping;
-            Assert.That(nestedValueMapping.Type, Is.EqualTo(typeof(B)));
-            Assert.That(nestedValueMapping.LocalName, Is.EqualTo("NestedValue"));
-            Assert.That(nestedValueMapping.IsDynamicType, Is.False);
-            Assert.That(nestedValueMapping.MetaData, Is.Empty);
+            Assert.IsRuntimeType<B>(nestedValueMapping.Type);
+            Assert.Equal("NestedValue", nestedValueMapping.LocalName);
+            Assert.False(nestedValueMapping.IsDynamicType);
+            Assert.Empty(nestedValueMapping.MetaData);
             AssertBModel(nestedValueMapping.InternalMappings);
 
             var nestedArrayMapping = mappings[2] as CollectionMapping;
-            Assert.That(nestedArrayMapping.Type, Is.EqualTo(typeof(B[])));
-            Assert.That(nestedArrayMapping.LocalName, Is.EqualTo("NestedArray"));
-            Assert.That(nestedArrayMapping.IsElementDynamicType, Is.False);
-            Assert.That(nestedArrayMapping.MetaData, Is.Empty);
+            Assert.IsRuntimeType<B[]>(nestedArrayMapping.Type);
+            Assert.Equal("NestedArray", nestedArrayMapping.LocalName);
+            Assert.False(nestedArrayMapping.IsElementDynamicType);
+            Assert.Empty(nestedArrayMapping.MetaData);
             AssertBModel(nestedArrayMapping.InternalMappings);
 
             var stuffMapping = mappings[3] as CollectionMapping;
-            Assert.That(stuffMapping.Type, Is.EqualTo(typeof(IList<string>)));
-            Assert.That(stuffMapping.LocalName, Is.EqualTo("Stuff"));
-            Assert.That(stuffMapping.IsElementDynamicType, Is.False);
-            Assert.That(stuffMapping.MetaData, Is.Empty);
-            Assert.That(stuffMapping.CollectionType, Is.EqualTo(typeof(string)));
-            Assert.That(stuffMapping.InternalMappings.Count, Is.EqualTo(0));
+            Assert.IsRuntimeType<IList<string>>(stuffMapping.Type);
+            Assert.Equal("Stuff", stuffMapping.LocalName);
+            Assert.False(stuffMapping.IsElementDynamicType);
+            Assert.Empty(stuffMapping.MetaData);
+            Assert.IsRuntimeType<string>(stuffMapping.CollectionType);
+            Assert.Equal(0, stuffMapping.InternalMappings.Count);
 
             var allTypesMapping = mappings[4] as NestedMapping;
-            Assert.That(allTypesMapping.Type, Is.EqualTo(typeof(D)));
-            Assert.That(allTypesMapping.LocalName, Is.EqualTo("AllTypes"));
-            Assert.That(allTypesMapping.IsDynamicType, Is.False);
-            Assert.That(allTypesMapping.MetaData, Is.Empty);
+            Assert.IsRuntimeType<D>(allTypesMapping.Type);
+            Assert.Equal("AllTypes", allTypesMapping.LocalName);
+            Assert.False(allTypesMapping.IsDynamicType);
+            Assert.Empty(allTypesMapping.MetaData);
             AssertDModel(allTypesMapping.InternalMappings);
 
             var simpleDictionaryMapping = mappings[5] as DictionaryMapping;
-            Assert.That(simpleDictionaryMapping.Type, Is.EqualTo(typeof(IDictionary<string, string>)));
-            Assert.That(simpleDictionaryMapping.LocalName, Is.EqualTo("SimpleDictionary"));
-            Assert.That(simpleDictionaryMapping.IsKeyDynamicType, Is.False);
-            Assert.That(simpleDictionaryMapping.IsValueDynamicType, Is.False);
-            Assert.That(simpleDictionaryMapping.MetaData, Is.Empty);
-            Assert.That(simpleDictionaryMapping.KeyType, Is.EqualTo(typeof(string)));
-            Assert.That(simpleDictionaryMapping.ValueType, Is.EqualTo(typeof(string)));
-            Assert.That(simpleDictionaryMapping.KeyMappings.Count, Is.EqualTo(0));
-            Assert.That(simpleDictionaryMapping.ValueMappings.Count, Is.EqualTo(0));
+            Assert.IsRuntimeType<IDictionary<string, string>>(simpleDictionaryMapping.Type);
+            Assert.Equal("SimpleDictionary", simpleDictionaryMapping.LocalName);
+            Assert.False(simpleDictionaryMapping.IsKeyDynamicType);
+            Assert.False(simpleDictionaryMapping.IsValueDynamicType);
+            Assert.Empty(simpleDictionaryMapping.MetaData);
+            Assert.IsRuntimeType<string>(simpleDictionaryMapping.KeyType);
+            Assert.IsRuntimeType<string>(simpleDictionaryMapping.ValueType);
+            Assert.Equal(0, simpleDictionaryMapping.KeyMappings.Count);
+            Assert.Equal(0, simpleDictionaryMapping.ValueMappings.Count);
 
             var complexDictionaryMapping = mappings[6] as DictionaryMapping;
-            Assert.That(complexDictionaryMapping.Type, Is.EqualTo(typeof(IDictionary<E, C>)));
-            Assert.That(complexDictionaryMapping.LocalName, Is.EqualTo("ComplexDictionary"));
-            Assert.That(complexDictionaryMapping.IsKeyDynamicType, Is.False);
-            Assert.That(complexDictionaryMapping.IsValueDynamicType, Is.False);
-            Assert.That(complexDictionaryMapping.MetaData, Is.Empty);
-            Assert.That(complexDictionaryMapping.KeyType, Is.EqualTo(typeof(E)));
-            Assert.That(complexDictionaryMapping.ValueType, Is.EqualTo(typeof(C)));
-            Assert.That(complexDictionaryMapping.KeyMappings.Count, Is.EqualTo(1));
-            Assert.That(complexDictionaryMapping.ValueMappings.Count, Is.EqualTo(1));
+            Assert.IsRuntimeType<IDictionary<E, C>>(complexDictionaryMapping.Type);
+            Assert.Equal("ComplexDictionary", complexDictionaryMapping.LocalName);
+            Assert.False(complexDictionaryMapping.IsKeyDynamicType);
+            Assert.False(complexDictionaryMapping.IsValueDynamicType);
+            Assert.Empty(complexDictionaryMapping.MetaData);
+            Assert.IsRuntimeType<E>(complexDictionaryMapping.KeyType);
+            Assert.IsRuntimeType<C>(complexDictionaryMapping.ValueType);
+            Assert.Equal(1, complexDictionaryMapping.KeyMappings.Count);
+            Assert.Equal(1, complexDictionaryMapping.ValueMappings.Count);
             AssertEModel(complexDictionaryMapping.KeyMappings);
             AssertCModel(complexDictionaryMapping.ValueMappings);
         }
 
         public static void AssertBModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(3));
+            Assert.Equal(3, mappings.Count);
 
             var stringValueMapping = mappings[0] as PropertyMapping;
-            Assert.That(stringValueMapping, Is.Not.Null);
-            Assert.That(stringValueMapping.Type, Is.EqualTo(typeof(string)));
-            Assert.That(stringValueMapping.LocalName, Is.EqualTo("StringValue"));
+            Assert.NotNull(stringValueMapping);
+            Assert.IsRuntimeType<string>(stringValueMapping.Type);
+            Assert.Equal("StringValue", stringValueMapping.LocalName);
 
             var intValueMapping = mappings[1] as PropertyMapping;
-            Assert.That(intValueMapping, Is.Not.Null);
-            Assert.That(intValueMapping.Type, Is.EqualTo(typeof(int)));
-            Assert.That(intValueMapping.LocalName, Is.EqualTo("IntValue"));
+            Assert.NotNull(intValueMapping);
+            Assert.IsRuntimeType<int>(intValueMapping.Type);
+            Assert.Equal("IntValue", intValueMapping.LocalName);
 
             var nestedArrayMapping = mappings[2] as CollectionMapping;
-            Assert.That(nestedArrayMapping, Is.Not.Null);
-            Assert.That(nestedArrayMapping.Type, Is.EqualTo(typeof(C[])));
-            Assert.That(nestedArrayMapping.LocalName, Is.EqualTo("NestedArray"));
+            Assert.NotNull(nestedArrayMapping);
+            Assert.IsRuntimeType<C[]>(nestedArrayMapping.Type);
+            Assert.Equal("NestedArray", nestedArrayMapping.LocalName);
 
             AssertCModel(nestedArrayMapping.InternalMappings);
         }
 
         public static void AssertCModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(1));
+            Assert.Equal(1, mappings.Count);
 
             var floatValueMapping = mappings[0] as PropertyMapping;
-            Assert.That(floatValueMapping, Is.Not.Null);
-            Assert.That(floatValueMapping.Type, Is.EqualTo(typeof(float)));
-            Assert.That(floatValueMapping.LocalName, Is.EqualTo("FloatValue"));
+            Assert.NotNull(floatValueMapping);
+            Assert.IsRuntimeType<float>(floatValueMapping.Type);
+            Assert.Equal("FloatValue", floatValueMapping.LocalName);
         }
 
         public static void AssertDModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(7));
+            Assert.Equal(7, mappings.Count);
 
             var byteValueMapping = mappings[0] as PropertyMapping;
-            Assert.That(byteValueMapping, Is.Not.Null);
-            Assert.That(byteValueMapping.Type, Is.EqualTo(typeof(byte)));
-            Assert.That(byteValueMapping.LocalName, Is.EqualTo("ByteValue"));
+            Assert.NotNull(byteValueMapping);
+            Assert.IsRuntimeType<byte>(byteValueMapping.Type);
+            Assert.Equal("ByteValue", byteValueMapping.LocalName);
 
             var shortValueMapping = mappings[1] as PropertyMapping;
-            Assert.That(shortValueMapping, Is.Not.Null);
-            Assert.That(shortValueMapping.Type, Is.EqualTo(typeof(short)));
-            Assert.That(shortValueMapping.LocalName, Is.EqualTo("ShortValue"));
+            Assert.NotNull(shortValueMapping);
+            Assert.IsRuntimeType<short>(shortValueMapping.Type);
+            Assert.Equal("ShortValue", shortValueMapping.LocalName);
 
             var intValueMapping = mappings[2] as PropertyMapping;
-            Assert.That(intValueMapping, Is.Not.Null);
-            Assert.That(intValueMapping.Type, Is.EqualTo(typeof(int)));
-            Assert.That(intValueMapping.LocalName, Is.EqualTo("IntValue"));
+            Assert.NotNull(intValueMapping);
+            Assert.IsRuntimeType<int>(intValueMapping.Type);
+            Assert.Equal("IntValue", intValueMapping.LocalName);
 
             var longValueMapping = mappings[3] as PropertyMapping;
-            Assert.That(longValueMapping, Is.Not.Null);
-            Assert.That(longValueMapping.Type, Is.EqualTo(typeof(long)));
-            Assert.That(longValueMapping.LocalName, Is.EqualTo("LongValue"));
+            Assert.NotNull(longValueMapping);
+            Assert.IsRuntimeType<long>(longValueMapping.Type);
+            Assert.Equal("LongValue", longValueMapping.LocalName);
 
             var guidValueMapping = mappings[4] as PropertyMapping;
-            Assert.That(guidValueMapping, Is.Not.Null);
-            Assert.That(guidValueMapping.Type, Is.EqualTo(typeof(Guid)));
-            Assert.That(guidValueMapping.LocalName, Is.EqualTo("GuidValue"));
+            Assert.NotNull(guidValueMapping);
+            Assert.IsRuntimeType<Guid>(guidValueMapping.Type);
+            Assert.Equal("GuidValue", guidValueMapping.LocalName);
 
             var dateTimeValueMapping = mappings[5] as PropertyMapping;
-            Assert.That(dateTimeValueMapping, Is.Not.Null);
-            Assert.That(dateTimeValueMapping.Type, Is.EqualTo(typeof(DateTime)));
-            Assert.That(dateTimeValueMapping.LocalName, Is.EqualTo("DateTimeValue"));
+            Assert.NotNull(dateTimeValueMapping);
+            Assert.IsRuntimeType<DateTime>(dateTimeValueMapping.Type);
+            Assert.Equal("DateTimeValue", dateTimeValueMapping.LocalName);
 
             var someTypeMapping = mappings[6] as PropertyMapping;
-            Assert.That(someTypeMapping, Is.Not.Null);
-            Assert.That(someTypeMapping.Type, Is.EqualTo(typeof(SomeTypes)));
-            Assert.That(someTypeMapping.LocalName, Is.EqualTo("SomeType"));
+            Assert.NotNull(someTypeMapping);
+            Assert.IsRuntimeType<SomeTypes>(someTypeMapping.Type);
+            Assert.Equal("SomeType", someTypeMapping.LocalName);
         }
 
         public static void AssertEModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(1));
+            Assert.Equal(1, mappings.Count);
 
             var intValueMapping = mappings[0] as PropertyMapping;
-            Assert.That(intValueMapping, Is.Not.Null);
-            Assert.That(intValueMapping.Type, Is.EqualTo(typeof(int)));
-            Assert.That(intValueMapping.LocalName, Is.EqualTo("IntValue"));
+            Assert.NotNull(intValueMapping);
+            Assert.IsRuntimeType<int>(intValueMapping.Type);
+            Assert.Equal("IntValue", intValueMapping.LocalName);
         }
 
         public static void AssertDynamicModel(IList<Mapping> mappings)
         {
-            Assert.That(mappings.Count, Is.EqualTo(4));
+            Assert.Equal(4, mappings.Count);
 
             var dynamicNestedPropertyMapping = mappings[0] as NestedMapping;
-            Assert.That(dynamicNestedPropertyMapping, Is.Not.Null);
-            Assert.That(dynamicNestedPropertyMapping.Type, Is.EqualTo(typeof(object)));
-            Assert.That(dynamicNestedPropertyMapping.IsDynamicType, Is.True);
-            Assert.That(dynamicNestedPropertyMapping.InternalMappings.Count, Is.EqualTo(0));
-            Assert.That(dynamicNestedPropertyMapping.LocalName, Is.EqualTo("DynamicNestedProperty"));
+            Assert.NotNull(dynamicNestedPropertyMapping);
+            Assert.IsRuntimeType<object>(dynamicNestedPropertyMapping.Type);
+            Assert.True(dynamicNestedPropertyMapping.IsDynamicType);
+            Assert.Empty(dynamicNestedPropertyMapping.InternalMappings);
+            Assert.Equal("DynamicNestedProperty", dynamicNestedPropertyMapping.LocalName);
 
             var dynamicPrimitivePropertyMapping = mappings[1] as NestedMapping;
-            Assert.That(dynamicPrimitivePropertyMapping, Is.Not.Null);
-            Assert.That(dynamicPrimitivePropertyMapping.Type, Is.EqualTo(typeof(object)));
-            Assert.That(dynamicPrimitivePropertyMapping.IsDynamicType, Is.True);
-            Assert.That(dynamicPrimitivePropertyMapping.InternalMappings.Count, Is.EqualTo(0));
-            Assert.That(dynamicPrimitivePropertyMapping.LocalName, Is.EqualTo("DynamicPrimitiveProperty"));
+            Assert.NotNull(dynamicPrimitivePropertyMapping);
+            Assert.IsRuntimeType<object>(dynamicPrimitivePropertyMapping.Type);
+            Assert.True(dynamicPrimitivePropertyMapping.IsDynamicType);
+            Assert.Empty(dynamicPrimitivePropertyMapping.InternalMappings);
+            Assert.Equal("DynamicPrimitiveProperty", dynamicPrimitivePropertyMapping.LocalName);
 
             var dynamicListMapping = mappings[2] as CollectionMapping;
-            Assert.That(dynamicListMapping, Is.Not.Null);
-            Assert.That(dynamicListMapping.Type, Is.EqualTo(typeof(IList<object>)));
-            Assert.That(dynamicListMapping.CollectionType, Is.EqualTo(typeof(object)));
-            Assert.That(dynamicListMapping.IsElementDynamicType, Is.True);
-            Assert.That(dynamicListMapping.InternalMappings.Count, Is.EqualTo(0));
-            Assert.That(dynamicListMapping.LocalName, Is.EqualTo("DynamicList"));
+            Assert.NotNull(dynamicListMapping);
+            Assert.IsRuntimeType<IList<object>>(dynamicListMapping.Type);
+            Assert.IsRuntimeType<object>(dynamicListMapping.CollectionType);
+            Assert.True(dynamicListMapping.IsElementDynamicType);
+            Assert.Empty(dynamicListMapping.InternalMappings);
+            Assert.Equal("DynamicList", dynamicListMapping.LocalName);
 
             var dynamicDictionaryMapping = mappings[3] as DictionaryMapping;
-            Assert.That(dynamicDictionaryMapping, Is.Not.Null);
-            Assert.That(dynamicDictionaryMapping.Type, Is.EqualTo(typeof(IDictionary<object,object>)));
-            Assert.That(dynamicDictionaryMapping.KeyType, Is.EqualTo(typeof(object)));
-            Assert.That(dynamicDictionaryMapping.ValueType, Is.EqualTo(typeof(object)));
-            Assert.That(dynamicDictionaryMapping.IsKeyDynamicType, Is.True);
-            Assert.That(dynamicDictionaryMapping.IsValueDynamicType, Is.True);
-            Assert.That(dynamicDictionaryMapping.KeyMappings.Count, Is.EqualTo(0));
-            Assert.That(dynamicDictionaryMapping.ValueMappings.Count, Is.EqualTo(0));
-            Assert.That(dynamicDictionaryMapping.LocalName, Is.EqualTo("DynamicDictionary"));
+            Assert.NotNull(dynamicDictionaryMapping);
+            Assert.IsRuntimeType<IDictionary<object, object>>(dynamicDictionaryMapping.Type);
+            Assert.IsRuntimeType<object>(dynamicDictionaryMapping.KeyType);
+            Assert.IsRuntimeType<object>(dynamicDictionaryMapping.ValueType);
+            Assert.True(dynamicDictionaryMapping.IsKeyDynamicType);
+            Assert.True(dynamicDictionaryMapping.IsValueDynamicType);
+            Assert.Empty(dynamicDictionaryMapping.KeyMappings);
+            Assert.Empty(dynamicDictionaryMapping.ValueMappings);
+            Assert.Equal("DynamicDictionary", dynamicDictionaryMapping.LocalName);
         }
     }
 }

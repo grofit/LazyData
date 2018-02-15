@@ -8,18 +8,16 @@ using LazyData.Serialization.Json;
 using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
-using NUnit.Framework;
+using Xunit;
 
 namespace LazyData.Tests.Serialization
 {
-    [TestFixture]
     public class NullableModelSerializationTests
     {
         private IMappingRegistry _mappingRegistry;
         private ITypeCreator _typeCreator;
 
-        [SetUp]
-        public void Setup()
+        public NullableModelSerializationTests()
         {
             _typeCreator = new TypeCreator();
 
@@ -28,7 +26,7 @@ namespace LazyData.Tests.Serialization
             _mappingRegistry = new MappingRegistry(mapper);
         }
 
-        [Test]
+        [Fact]
         public void should_serialize_populated_nullable_data_with_debug_serializer()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -38,7 +36,7 @@ namespace LazyData.Tests.Serialization
             Console.WriteLine(output.AsString);
         }
         
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_with_json()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -54,7 +52,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNullableModelData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_into_existing_object_with_json()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -71,7 +69,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNullableModelData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_with_binary()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -87,7 +85,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNullableModelData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_into_existing_object_with_binary()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -104,7 +102,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNullableModelData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_with_xml()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();
@@ -120,7 +118,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNullableModelData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_populated_nullable_data_into_existing_object_with_xml()
         {
             var model = SerializationTestHelper.GeneratePopulatedNullableModel();

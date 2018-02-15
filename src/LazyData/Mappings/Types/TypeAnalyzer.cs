@@ -9,7 +9,7 @@ namespace LazyData.Mappings.Types
 {
     public class TypeAnalyzer : ITypeAnalyzer
     {
-        public TypeAnalyzerConfiguration Configuration { get; private set; }
+        public TypeAnalyzerConfiguration Configuration { get; }
         
         public TypeAnalyzer(TypeAnalyzerConfiguration configuration = null)
         {

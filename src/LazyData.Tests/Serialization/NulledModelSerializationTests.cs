@@ -8,18 +8,16 @@ using LazyData.Serialization.Json;
 using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
-using NUnit.Framework;
+using Xunit;
 
 namespace LazyData.Tests.Serialization
 {
-    [TestFixture]
     public class NulledModelSerializationTests
     {
         private IMappingRegistry _mappingRegistry;
         private ITypeCreator _typeCreator;
 
-        [SetUp]
-        public void Setup()
+        public NulledModelSerializationTests()
         {
             _typeCreator = new TypeCreator();
 
@@ -28,7 +26,7 @@ namespace LazyData.Tests.Serialization
             _mappingRegistry = new MappingRegistry(mapper);
         }
 
-        [Test]
+        [Fact]
         public void should_serialize_nulled_data_with_debug_serializer()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -38,7 +36,7 @@ namespace LazyData.Tests.Serialization
             Console.WriteLine(output.AsString);
         }
         
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_with_json()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -54,7 +52,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNulledData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_into_existing_object_with_json()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -71,7 +69,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNulledData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_with_binary()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -87,7 +85,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNulledData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_into_existing_object_with_binary()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -104,7 +102,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNulledData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_with_xml()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
@@ -120,7 +118,7 @@ namespace LazyData.Tests.Serialization
             SerializationTestHelper.AssertNulledData(model, result);
         }
 
-        [Test]
+        [Fact]
         public void should_correctly_serialize_nulled_data_into_existing_object_with_xml()
         {
             var model = SerializationTestHelper.GenerateNulledModel();
