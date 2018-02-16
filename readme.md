@@ -70,10 +70,10 @@ You can alternatively use an `DefaultTypeMapper` instead of the `EverythingTypeM
 [Persist]
 public class SomeClass
 {
-	[PersistData]
+    [PersistData]
     public float SomeValue { get; set; }
-	
-	public string NotPersisted { get; set; }
+
+    public string NotPersisted { get; set; }
 }
 
 var mappingRegistry = new MappingRegistry(new DefaultTypeMapper());
