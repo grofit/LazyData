@@ -2,15 +2,6 @@
 {
     public class MappingConfiguration
     {
-
-        public static MappingConfiguration Default
-        {
-            get
-            {
-                return new MappingConfiguration
-                {
-                };
-            }
-        }
+        public static MappingConfiguration Default => new MappingConfiguration();
     }
 }

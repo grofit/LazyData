@@ -31,5 +31,6 @@ namespace LazyData.Registries
             TypeMappings.Add(type, typeMapping);
             return typeMapping;
         }
+        
     }
 }

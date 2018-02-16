@@ -1,10 +1,16 @@
 # LazyData
 
-A data (de)serializer for use with data transformation within ETL style pipelines.
-
-This was originally part of the [Persistity library](https://github.com/grofit/persistity) for unity, however was separated out to make more generic and reuseable and although its still meant to be used as a smaller part of a larger process, it has some helpers to allow it to be used just like a basic serializer without much effort.
+A quick data (de)serialization framework for varying data formats in .net with a focus on clean and minimal serialized output for each format, mainly for game development scenarios such as in Unity, MonoGame etc.
 
 [![Gitter](https://badges.gitter.im/grofit/persistity.svg)](https://gitter.im/grofit/persistity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+Formats supported
+
+- Json (via some JSON.Net implementation)
+- Xml
+- Binary
+
+If you are interested in how the outputs would look take a look [here](docs/example-outputs.md)
 
 ## Examples 
 
@@ -89,3 +95,9 @@ Check out the docs directory for docs which go into more detail.
 ## Tests
 
 There are a suite of unit tests which verify most scenarios, as well as output some performance related stats, it is recommended you take a peek at them if you want to see more advanced scenarios.
+
+## Blurb
+
+This was originally part of the [Persistity library](https://github.com/grofit/persistity) for unity *(which was originally part of [EcsRx library](https://github.com/grofit/ecsrx))*, however was separated out to make more generic and reuseable and although its still meant to be used as a smaller part of a larger process, it has some helpers to allow it to be used just like a basic serializer without much effort.
+
+The original focus of this library was to provide a consistent way to pass data around and convert/transform it between formats and types easily however as the serialization pieces can be used in isolation purely for serialization 
