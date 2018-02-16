@@ -1,0 +1,1 @@
+nuget pack ../src/lazydata.superlazy/package.nuspec

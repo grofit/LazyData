@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>    
+    <id>lazydata.superlazy</id>
+    <version>0.1.0</version>
+    <title>LazyData.SuperLazy</title>
+    <authors>grofit</authors>
+    <owners>grofit</owners>
+    <licenseUrl>https://github.com/grofit/LazyData/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/grofit/LazyData</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A super lazy helper class for use with lazydata</description>
+    <summary>A super lazy helper class for use with lazydata</summary>
+    <releaseNotes>Initial release</releaseNotes>
+    <tags></tags>
+    <dependencies>
+      <dependency id="lazydata" version="0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.0\LazyData.SuperLazy.dll" target="lib/netstandard2.0" />
+    <file src="../../readme.md" target="" />
+  </files>
+</package>

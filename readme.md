@@ -3,6 +3,7 @@
 A quick data (de)serialization framework for varying data formats in .net with a focus on clean and minimal serialized output for each format, mainly for game development scenarios such as in Unity, MonoGame etc.
 
 [![Build Status][build-status-image]][build-status-url]
+[![Nuget Package][nuget-image]][nuget-url]
 [![Join Gitter Chat][gitter-image]][gitter-url]
 
 Formats supported
@@ -108,3 +109,5 @@ The original focus of this library was to provide a consistent way to pass data 
 [build-status-url]: https://travis-ci.org/grofit/LazyData
 [gitter-image]: https://badges.gitter.im/grofit/persistity.svg
 [gitter-url]: https://gitter.im/grofit/persistity
+[nuget-image]: https://img.shields.io/nuget/v/LazyData.svg?style=flat-square
+[nuget-url]: https://www.nuget.org/packages/LazyData/
