@@ -8,6 +8,7 @@ using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace LazyData.Tests.Serialization
 {
@@ -16,8 +17,11 @@ namespace LazyData.Tests.Serialization
         private IMappingRegistry _mappingRegistry;
         private ITypeCreator _typeCreator;
 
-        public DynamicModelSerializationTests()
+        private ITestOutputHelper testOutputHelper;
+
+        public DynamicModelSerializationTests(ITestOutputHelper testOutputHelper)
         {
+            this.testOutputHelper = testOutputHelper;
             _typeCreator = new TypeCreator();
 
             var analyzer = new TypeAnalyzer();
@@ -32,8 +36,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -48,8 +52,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
@@ -65,8 +69,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new BinarySerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -81,8 +85,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new BinarySerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
@@ -98,8 +102,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new XmlSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -114,8 +118,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new XmlSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
@@ -131,8 +135,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -147,8 +151,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
@@ -164,8 +168,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new BinarySerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -180,8 +184,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new BinarySerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
@@ -197,8 +201,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new XmlSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<DynamicTypesModel>(output);
@@ -213,8 +217,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new XmlSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            testOutputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            testOutputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var existingInstance = new DynamicTypesModel();
