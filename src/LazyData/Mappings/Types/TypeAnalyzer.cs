@@ -4,15 +4,20 @@ using System.Linq;
 using System.Reflection;
 using LazyData.Attributes;
 using LazyData.Extensions;
+using LazyData.Mappings.Types.Primitives;
+using LazyData.Mappings.Types.Primitives.Checkers;
 
 namespace LazyData.Mappings.Types
 {
     public class TypeAnalyzer : ITypeAnalyzer
     {
         public TypeAnalyzerConfiguration Configuration { get; }
-        
-        public TypeAnalyzer(TypeAnalyzerConfiguration configuration = null)
+        public IPrimitiveHandler PrimitiveHandler { get; }
+
+        public TypeAnalyzer(IPrimitiveHandler primitiveHandler = null, TypeAnalyzerConfiguration configuration = null)
         {
+            PrimitiveHandler = primitiveHandler ?? new PrimitiveHandler();
+            PrimitiveHandler.AddPrimitiveCheck(new BasicPrimitiveChecker());
             Configuration = configuration ?? TypeAnalyzerConfiguration.Default;
         }
 
@@ -62,11 +67,7 @@ namespace LazyData.Mappings.Types
 
         public virtual bool IsDefaultPrimitiveType(Type type)
         {
-            return type.IsPrimitive ||
-                   type == typeof(string) ||
-                   type == typeof(DateTime) ||
-                   type == typeof(Guid) ||
-                   type.IsEnum;
+            return PrimitiveHandler.IsKnownPrimitive(type);
         }
 
         public virtual bool IsNullablePrimitiveType(Type type)
