@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LazyData.Mappings.Types.Primitives.Checkers;
 
 namespace LazyData.Mappings.Types.Primitives
 {
     public class PrimitiveHandler : IPrimitiveHandler
     {
-        private readonly IList<IPrimitiveChecker> _primitiveChecks = new List<IPrimitiveChecker>();
+        private readonly IList<IPrimitiveChecker> _primitiveChecks;
         
         public IEnumerable<IPrimitiveChecker> PrimitiveChecks => _primitiveChecks;
 
+        public PrimitiveHandler(params IPrimitiveChecker[] primitiveCheckers)
+        { _primitiveChecks = primitiveCheckers.ToList(); }
+
         public void AddPrimitiveCheck(IPrimitiveChecker primitiveCheck)
-        { _primitiveChecks.Add(primitiveCheck); }
+        {
+            if(_primitiveChecks.Contains(primitiveCheck))
+            { return; }
+
+            _primitiveChecks.Add(primitiveCheck);
+        }
 
         public bool IsKnownPrimitive(Type type)
         {

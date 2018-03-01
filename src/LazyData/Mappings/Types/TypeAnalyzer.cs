@@ -16,8 +16,12 @@ namespace LazyData.Mappings.Types
 
         public TypeAnalyzer(IPrimitiveHandler primitiveHandler = null, TypeAnalyzerConfiguration configuration = null)
         {
-            PrimitiveHandler = primitiveHandler ?? new PrimitiveHandler();
-            PrimitiveHandler.AddPrimitiveCheck(new BasicPrimitiveChecker());
+            if (primitiveHandler == null)
+            {
+                PrimitiveHandler = new PrimitiveHandler();
+                PrimitiveHandler.AddPrimitiveCheck(new BasicPrimitiveChecker());
+            }
+
             Configuration = configuration ?? new TypeAnalyzerConfiguration();
         }
 
@@ -59,10 +63,7 @@ namespace LazyData.Mappings.Types
             }
 
             var interfaces = actualType.GetInterfaces();
-            if (interfaces.Any(x => x == expectedType))
-            { return true; }
-            
-            return false;
+            return interfaces.Any(x => x == expectedType);
         }
 
         public Type GetNullableType(Type possibleNullable)
