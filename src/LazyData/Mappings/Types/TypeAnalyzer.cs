@@ -65,34 +65,10 @@ namespace LazyData.Mappings.Types
             return false;
         }
 
-        public virtual bool IsDefaultPrimitiveType(Type type)
-        {
-            return PrimitiveHandler.IsKnownPrimitive(type);
-        }
-
         public Type GetNullableType(Type possibleNullable)
         { return Nullable.GetUnderlyingType(possibleNullable); }
 
-        public bool ShouldTreatAsPrimitiveType(Type type)
-        {
-            return PrimitiveHandler.IsKnownPrimitive(type);
-        }
-
         public bool IsPrimitiveType(Type type)
-        {
-            var isDefaultPrimitive = IsDefaultPrimitiveType(type);
-
-            if (isDefaultPrimitive)
-            { return true; }
-
-            var nullableType = Nullable.GetUnderlyingType(type);
-            if (nullableType != null)
-            {
-                var isNullablePrimitive = IsDefaultPrimitiveType(nullableType);
-                if (isNullablePrimitive) { return true; }
-            }
-
-            return ShouldTreatAsPrimitiveType(type);
-        }
+        { return PrimitiveHandler.IsKnownPrimitive(type); }
     }
 }

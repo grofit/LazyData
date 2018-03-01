@@ -71,7 +71,7 @@ namespace LazyData.Serialization
                 return;
             }
 
-            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsDefaultPrimitiveType(type);
+            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(type);
             if (isDefaultPrimitive)
             {
                 SerializeDefaultPrimitive(value, type, state);
@@ -81,7 +81,7 @@ namespace LazyData.Serialization
             var possibleNullableType = MappingRegistry.TypeMapper.TypeAnalyzer.GetNullableType(type);
             if (possibleNullableType != null)
             {
-                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsDefaultPrimitiveType(possibleNullableType);
+                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(possibleNullableType);
                 if (isNullablePrimitive)
                 {
                     SerializeDefaultPrimitive(value, possibleNullableType, state);

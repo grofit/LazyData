@@ -139,14 +139,14 @@ namespace LazyData.Serialization
             if (IsDataNull(state))
             { return null; }
 
-            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsDefaultPrimitiveType(type);
+            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(type);
             if (isDefaultPrimitive)
             { return DeserializeDefaultPrimitive(type, state); }
 
             var possibleNullableType = MappingRegistry.TypeMapper.TypeAnalyzer.GetNullableType(type);
             if (possibleNullableType != null)
             {
-                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsDefaultPrimitiveType(possibleNullableType);
+                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(possibleNullableType);
                 if(isNullablePrimitive)
                 { return DeserializeDefaultPrimitive(possibleNullableType, state); }
             }

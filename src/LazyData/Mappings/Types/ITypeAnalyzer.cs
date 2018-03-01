@@ -9,11 +9,9 @@ namespace LazyData.Mappings.Types
         bool IsGenericDictionary(Type type);
         bool IsDynamicType(Type type);
         bool IsDynamicType(PropertyInfo propertyInfo);
-        bool IsDefaultPrimitiveType(Type type);
         Type GetNullableType(Type type);
         bool HasIgnoredTypes();
         bool IsIgnoredType(Type type);
-        bool ShouldTreatAsPrimitiveType(Type type);
         bool IsPrimitiveType(Type type);
     }
 }

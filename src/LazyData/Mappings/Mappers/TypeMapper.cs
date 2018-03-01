@@ -55,12 +55,19 @@ namespace LazyData.Mappings.Mappers
 
             if (TypeAnalyzer.IsPrimitiveType(propertyInfo.PropertyType))
             { return CreatePropertyMappingFor(propertyInfo, currentScope); }
-
+            
             if (propertyInfo.PropertyType.IsArray || TypeAnalyzer.IsGenericList(propertyInfo.PropertyType))
             { return CreateCollectionMappingFor(propertyInfo, currentScope); }
 
             if (TypeAnalyzer.IsGenericDictionary(propertyInfo.PropertyType))
             { return CreateDictionaryMappingFor(propertyInfo, currentScope); }
+
+            var possibleType = TypeAnalyzer.GetNullableType(propertyInfo.PropertyType);
+            if (possibleType != null)
+            {
+                if (TypeAnalyzer.IsPrimitiveType(possibleType))
+                { return CreatePropertyMappingFor(propertyInfo, currentScope); }
+            }
 
             return CreateNestedMappingFor(propertyInfo, currentScope);
         }
