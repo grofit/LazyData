@@ -10,7 +10,7 @@ namespace LazyData.Mappings.Types
         bool IsDynamicType(Type type);
         bool IsDynamicType(PropertyInfo propertyInfo);
         bool IsDefaultPrimitiveType(Type type);
-        bool IsNullablePrimitiveType(Type type);
+        Type GetNullableType(Type type);
         bool HasIgnoredTypes();
         bool IsIgnoredType(Type type);
         bool ShouldTreatAsPrimitiveType(Type type);

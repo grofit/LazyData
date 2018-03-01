@@ -5,13 +5,11 @@ namespace LazyData.Mappings.Types
 {
     public class TypeAnalyzerConfiguration
     {
-        public IEnumerable<Type> TreatAsPrimitives { get; set; }
-        public IEnumerable<Type> IgnoredTypes { get; set; }
+        public IEnumerable<Type> IgnoredTypes { get; }
 
-        public static TypeAnalyzerConfiguration Default => new TypeAnalyzerConfiguration
+        public TypeAnalyzerConfiguration(IEnumerable<Type> ignoredTypes = null)
         {
-            TreatAsPrimitives = new Type[0],
-            IgnoredTypes = new Type[0]
-        };
+            IgnoredTypes = ignoredTypes ?? new List<Type>();
+        }
     }
 }

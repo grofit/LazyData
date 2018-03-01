@@ -18,7 +18,7 @@ namespace LazyData.Mappings.Types
         {
             PrimitiveHandler = primitiveHandler ?? new PrimitiveHandler();
             PrimitiveHandler.AddPrimitiveCheck(new BasicPrimitiveChecker());
-            Configuration = configuration ?? TypeAnalyzerConfiguration.Default;
+            Configuration = configuration ?? new TypeAnalyzerConfiguration();
         }
 
         public bool IsGenericList(Type type)
@@ -70,16 +70,12 @@ namespace LazyData.Mappings.Types
             return PrimitiveHandler.IsKnownPrimitive(type);
         }
 
-        public virtual bool IsNullablePrimitiveType(Type type)
-        {
-            var nullableType = Nullable.GetUnderlyingType(type);
-            if(nullableType == null) { return false; }
-            return IsDefaultPrimitiveType(nullableType);
-        }
+        public Type GetNullableType(Type possibleNullable)
+        { return Nullable.GetUnderlyingType(possibleNullable); }
 
         public bool ShouldTreatAsPrimitiveType(Type type)
         {
-            return Configuration.TreatAsPrimitives.Any(x => IsTypeMatch(type, x));
+            return PrimitiveHandler.IsKnownPrimitive(type);
         }
 
         public bool IsPrimitiveType(Type type)

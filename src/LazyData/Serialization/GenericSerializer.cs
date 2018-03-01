@@ -78,14 +78,17 @@ namespace LazyData.Serialization
                 return;
             }
 
-            var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsNullablePrimitiveType(type);
-            if (isNullablePrimitive)
+            var possibleNullableType = MappingRegistry.TypeMapper.TypeAnalyzer.GetNullableType(type);
+            if (possibleNullableType != null)
             {
-                var underlyingType = Nullable.GetUnderlyingType(type);
-                SerializeDefaultPrimitive(value, underlyingType, state);
-                return;
+                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsDefaultPrimitiveType(possibleNullableType);
+                if (isNullablePrimitive)
+                {
+                    SerializeDefaultPrimitive(value, possibleNullableType, state);
+                    return;
+                }
             }
-
+            
             var matchingHandler = Configuration.TypeHandlers.SingleOrDefault(x => x.MatchesType(type));
             if(matchingHandler == null) { throw new NoKnownTypeException(type); }
             matchingHandler.HandleTypeSerialization(state, value, type);
