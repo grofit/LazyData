@@ -25,6 +25,14 @@ namespace LazyData.Serialization.Xml.Handlers
                 return;
             }
 
+            if (type == typeof(TimeSpan))
+            {
+                var typedValue = (TimeSpan)data;
+                var stringValue = typedValue.TotalMilliseconds.ToString();
+                state.Value = stringValue;
+                return;
+            }
+
             if (type.IsTypeOf(StringCompatibleTypes) || type.IsEnum)
             {
                 state.Value = data.ToString();
@@ -53,6 +61,12 @@ namespace LazyData.Serialization.Xml.Handlers
             {
                 var binaryTime = long.Parse(state.Value);
                 return DateTime.FromBinary(binaryTime);
+            }
+
+            if (type == typeof(TimeSpan))
+            {
+                var milliseconds = double.Parse(state.Value);
+                return TimeSpan.FromMilliseconds(milliseconds);
             }
 
             return state.Value;

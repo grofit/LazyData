@@ -25,6 +25,14 @@ namespace LazyData.Serialization.Json.Handlers
                 return;
             }
 
+            if (type == typeof(TimeSpan))
+            {
+                var typedValue = (TimeSpan)data;
+                var stringValue = typedValue.TotalMilliseconds.ToString();
+                state.Replace(new JValue(stringValue));
+                return;
+            }
+
             if (type.IsTypeOf(StringCompatibleTypes) || type.IsEnum)
             {
                 state.Replace(new JValue(data));
@@ -38,7 +46,15 @@ namespace LazyData.Serialization.Json.Handlers
                 var binaryDate = state.ToObject<long>();
                 return DateTime.FromBinary(binaryDate);
             }
-            if (type.IsEnum) { return Enum.Parse(type, state.ToString()); }
+
+            if (type == typeof(TimeSpan))
+            {
+                var binaryDate = state.ToObject<double>();
+                return TimeSpan.FromMilliseconds(binaryDate);
+            }
+
+            if (type.IsEnum)
+            { return Enum.Parse(type, state.ToString()); }
 
             return state.ToObject(type);
         }

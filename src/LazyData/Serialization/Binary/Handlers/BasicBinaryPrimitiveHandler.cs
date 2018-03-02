@@ -19,7 +19,7 @@ namespace LazyData.Serialization.Binary.Handlers
             else if (type == typeof(double)) { state.Write((double)data); }
             else if (type == typeof(decimal)) { state.Write((decimal)data); }
             else if (type.IsEnum) { state.Write((int)data); }
-
+            else if (type == typeof(TimeSpan)) { state.Write(((TimeSpan)data).TotalMilliseconds); }
             else if (type == typeof(DateTime)) { state.Write(((DateTime)data).ToBinary()); }
             else if (type == typeof(Guid)) { state.Write(((Guid)data).ToString()); }
             else if (type == typeof(string)) { state.Write(data.ToString()); }
@@ -48,6 +48,11 @@ namespace LazyData.Serialization.Binary.Handlers
             {
                 var binaryTime = state.ReadInt64();
                 return DateTime.FromBinary(binaryTime);
+            }
+            if (type == typeof(TimeSpan))
+            {
+                var totalMilliseconds = state.ReadDouble();
+                return TimeSpan.FromMilliseconds(totalMilliseconds);
             }
 
             return state.ReadString();
