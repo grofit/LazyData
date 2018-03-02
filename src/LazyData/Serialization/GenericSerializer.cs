@@ -11,14 +11,13 @@ namespace LazyData.Serialization
     public abstract class GenericSerializer<TSerializeState, TDeserializeState> : ISerializer
     {
         public IMappingRegistry MappingRegistry { get; }
-        public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+        public IEnumerable<IPrimitiveHandler<TSerializeState, TDeserializeState>> CustomPrimitiveHandlers { get; }
+        public abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
 
-        protected abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
-
-        protected GenericSerializer(IMappingRegistry mappingRegistry, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
+        protected GenericSerializer(IMappingRegistry mappingRegistry, IEnumerable<IPrimitiveHandler<TSerializeState, TDeserializeState>> customPrimitiveHandlers)
         {
             MappingRegistry = mappingRegistry;
-            Configuration = configuration;
+            CustomPrimitiveHandlers = customPrimitiveHandlers ?? new IPrimitiveHandler<TSerializeState, TDeserializeState>[0];
         }
 
         public abstract DataObject Serialize(object data);
@@ -92,7 +91,7 @@ namespace LazyData.Serialization
                 }
             }
             
-            var matchingHandler = Configuration.PrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
+            var matchingHandler = CustomPrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
             if(matchingHandler == null) { throw new NoKnownTypeException(type); }
             matchingHandler.Serialize(state, value, type);
         }

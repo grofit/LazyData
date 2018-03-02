@@ -16,12 +16,10 @@ namespace LazyData.Serialization.Json
         public const string KeyField = "Key";
         public const string ValueField = "Value";
 
-        protected override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
-        
-        public JsonSerializer(IMappingRegistry mappingRegistry, JsonConfiguration configuration = null) : base(mappingRegistry)
-        {
-            Configuration = configuration ?? new JsonConfiguration();
-        }
+        public override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
+
+        public JsonSerializer(IMappingRegistry mappingRegistry, IEnumerable<IJsonPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, customPrimitiveHandlers)
+        {}
 
         protected override void HandleNullData(JToken state)
         { state.Replace(JValue.CreateNull()); }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
@@ -8,12 +9,10 @@ namespace LazyData.Serialization.Binary
 {
     public class BinaryDeserializer : GenericDeserializer<BinaryWriter, BinaryReader>, IBinaryDeserializer
     {
-        protected override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
-        
-        public BinaryDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, BinaryConfiguration configuration = null) : base(mappingRegistry, typeCreator)
-        {
-            Configuration = configuration ?? new BinaryConfiguration();
-        }
+        public override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
+
+        public BinaryDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, IEnumerable<IBinaryPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, typeCreator, customPrimitiveHandlers)
+        {}
 
         protected override bool IsDataNull(BinaryReader reader)
         {

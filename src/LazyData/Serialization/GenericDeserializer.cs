@@ -13,15 +13,15 @@ namespace LazyData.Serialization
     {
         public IMappingRegistry MappingRegistry { get; }
         public ITypeCreator TypeCreator { get; }
-        public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+        public IEnumerable<IPrimitiveHandler<TSerializeState, TDeserializeState>> CustomPrimitiveHandlers { get; }
 
-        protected abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
+        public abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
 
-        protected GenericDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
+        protected GenericDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, IEnumerable<IPrimitiveHandler<TSerializeState, TDeserializeState>> customPrimitiveHandlers)
         {
             MappingRegistry = mappingRegistry;
             TypeCreator = typeCreator;
-            Configuration = configuration;
+            CustomPrimitiveHandlers = customPrimitiveHandlers ?? new IPrimitiveHandler<TSerializeState, TDeserializeState>[0];
         }
 
         public abstract object Deserialize(DataObject data);
@@ -42,7 +42,7 @@ namespace LazyData.Serialization
 
         protected virtual object DeserializeDefaultPrimitive(Type type, TDeserializeState state)
         {
-            var matchedHandler = Configuration.PrimitiveHandlers.FirstOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
+            var matchedHandler = CustomPrimitiveHandlers.FirstOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
             if (matchedHandler == null) { throw new Exception($"The primitive matched has no handler: {type}"); }
             return matchedHandler.Deserialize(state, type);
         }
@@ -162,7 +162,7 @@ namespace LazyData.Serialization
                 { return DefaultPrimitiveHandler.Deserialize(state, possibleNullableType); }
             }
 
-            var matchingHandler = Configuration.PrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
+            var matchingHandler = CustomPrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
             if (matchingHandler != null)
             { return matchingHandler.Deserialize(state, type); }
 

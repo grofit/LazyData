@@ -12,12 +12,10 @@ namespace LazyData.Serialization.Xml
 {
     public class XmlDeserializer : GenericDeserializer<XElement, XElement>, IXmlDeserializer
     {
-        protected override IPrimitiveHandler<XElement, XElement> DefaultPrimitiveHandler { get; } = new BasicXmlPrimitiveHandler();
+        public override IPrimitiveHandler<XElement, XElement> DefaultPrimitiveHandler { get; } = new BasicXmlPrimitiveHandler();
 
-        public XmlDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, XmlConfiguration configuration = null) : base(mappingRegistry, typeCreator)
-        {
-            Configuration = configuration ?? new XmlConfiguration();
-        }
+        public XmlDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, IEnumerable<IXmlPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, typeCreator, customPrimitiveHandlers)
+        {}
 
         protected override bool IsDataNull(XElement state)
         { return state.Attribute("IsNull") != null; }

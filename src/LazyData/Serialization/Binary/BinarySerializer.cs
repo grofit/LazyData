@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using LazyData.Extensions;
 using LazyData.Registries;
@@ -11,12 +12,10 @@ namespace LazyData.Serialization.Binary
         public static readonly byte[] NullDataSig = { 141, 141 };
         public static readonly byte[] NullObjectSig = { 141, 229, 141 };
 
-        protected override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
+        public override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
 
-        public BinarySerializer(IMappingRegistry mappingRegistry, BinaryConfiguration configuration = null) : base(mappingRegistry)
-        {
-            Configuration = configuration ?? new BinaryConfiguration();
-        }
+        public BinarySerializer(IMappingRegistry mappingRegistry, IEnumerable<IBinaryPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, customPrimitiveHandlers)
+        {}
 
         protected override void HandleNullData(BinaryWriter state)
         { state.Write(NullDataSig); }

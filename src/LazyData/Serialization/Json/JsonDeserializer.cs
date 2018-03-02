@@ -12,13 +12,10 @@ namespace LazyData.Serialization.Json
 {
     public class JsonDeserializer : GenericDeserializer<JToken, JToken>, IJsonDeserializer
     {
-        protected override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
+        public override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
 
-        public JsonDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, JsonConfiguration configuration = null)
-            : base(mappingRegistry, typeCreator)
-        {
-            Configuration = configuration ?? new JsonConfiguration();
-        }
+        public JsonDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, IEnumerable<IJsonPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, typeCreator, customPrimitiveHandlers)
+        {}
 
         protected override bool IsDataNull(JToken state)
         {
