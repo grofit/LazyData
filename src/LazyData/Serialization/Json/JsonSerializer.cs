@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LazyData.Extensions;
 using LazyData.Mappings;
 using LazyData.Registries;
+using LazyData.Serialization.Json.Handlers;
 using Newtonsoft.Json.Linq;
 
 namespace LazyData.Serialization.Json

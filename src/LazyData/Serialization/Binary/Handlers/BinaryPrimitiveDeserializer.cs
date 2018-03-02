@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace LazyData.Serialization.Binary
+namespace LazyData.Serialization.Binary.Handlers
 {
     public class BinaryPrimitiveDeserializer
     {

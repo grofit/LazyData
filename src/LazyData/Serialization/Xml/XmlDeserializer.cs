@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using LazyData.Mappings;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
+using LazyData.Serialization.Xml.Handlers;
 
 namespace LazyData.Serialization.Xml
 {

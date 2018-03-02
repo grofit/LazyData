@@ -2,7 +2,7 @@
 using LazyData.Extensions;
 using Newtonsoft.Json.Linq;
 
-namespace LazyData.Serialization.Json
+namespace LazyData.Serialization.Json.Handlers
 {
     public class JsonPrimitiveSerializer
     {

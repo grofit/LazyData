@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
 
-namespace LazyData.Serialization.Json
+namespace LazyData.Serialization.Json.Handlers
 {
     public class JsonPrimitiveDeserializer
     {

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using LazyData.Extensions;
 using LazyData.Registries;
+using LazyData.Serialization.Binary.Handlers;
 
 namespace LazyData.Serialization.Binary
 {

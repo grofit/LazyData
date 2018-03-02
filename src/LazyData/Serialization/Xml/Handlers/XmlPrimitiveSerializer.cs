@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using LazyData.Extensions;
 
-namespace LazyData.Serialization.Xml
+namespace LazyData.Serialization.Xml.Handlers
 {
     public class XmlPrimitiveSerializer
     {
