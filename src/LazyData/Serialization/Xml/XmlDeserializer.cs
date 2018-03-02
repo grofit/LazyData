@@ -11,11 +11,11 @@ namespace LazyData.Serialization.Xml
 {
     public class XmlDeserializer : GenericDeserializer<XElement, XElement>, IXmlDeserializer
     {
-        protected XmlPrimitiveDeserializer XmlPrimitiveDeserializer { get; private set; }
+        protected XmlPrimitiveDeserializer XmlPrimitiveDeserializer { get; }
 
         public XmlDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, XmlConfiguration configuration = null) : base(mappingRegistry, typeCreator)
         {
-            Configuration = configuration ?? XmlConfiguration.Default;
+            Configuration = configuration ?? new XmlConfiguration();
             XmlPrimitiveDeserializer = new XmlPrimitiveDeserializer();
         }
 

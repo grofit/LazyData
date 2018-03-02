@@ -1,12 +1,15 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace LazyData.Serialization.Binary
 {
-    public class BinaryConfiguration : SerializationConfiguration<BinaryWriter,BinaryReader>
+    public class BinaryConfiguration : ISerializationConfiguration<BinaryWriter,BinaryReader>
     {
-        public static BinaryConfiguration Default => new BinaryConfiguration
+        public IEnumerable<IPrimitiveHandler<BinaryWriter, BinaryReader>> TypeHandlers { get; }
+
+        public BinaryConfiguration(IEnumerable<IPrimitiveHandler<BinaryWriter, BinaryReader>> typeHandlers = null)
         {
-            TypeHandlers = new IPrimitiveHandler<BinaryWriter, BinaryReader>[0]
-        };
+            TypeHandlers = typeHandlers ?? new List<IPrimitiveHandler<BinaryWriter, BinaryReader>>();
+        }
     }
 }

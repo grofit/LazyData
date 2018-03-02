@@ -11,7 +11,7 @@ namespace LazyData.Serialization.Binary
 
         public BinaryDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, BinaryConfiguration configuration = null) : base(mappingRegistry, typeCreator)
         {
-            Configuration = configuration ?? BinaryConfiguration.Default;
+            Configuration = configuration ?? new BinaryConfiguration();
             BinaryPrimitiveDeserializer = new BinaryPrimitiveDeserializer();
         }
 

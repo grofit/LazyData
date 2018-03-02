@@ -16,7 +16,7 @@ namespace LazyData.Serialization.Json
         public JsonDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, JsonConfiguration configuration = null)
             : base(mappingRegistry, typeCreator)
         {
-            Configuration = configuration ?? JsonConfiguration.Default;
+            Configuration = configuration ?? new JsonConfiguration();
             JsonPrimitiveDeserializer = new JsonPrimitiveDeserializer();
         }
 

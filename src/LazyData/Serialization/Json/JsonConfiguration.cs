@@ -1,12 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace LazyData.Serialization.Json
 {
-    public class JsonConfiguration : SerializationConfiguration<JToken, JToken>
+    public class JsonConfiguration : ISerializationConfiguration<JToken, JToken>
     {
-        public static JsonConfiguration Default => new JsonConfiguration
+        public IEnumerable<IPrimitiveHandler<JToken, JToken>> TypeHandlers { get; }
+
+        public JsonConfiguration(IEnumerable<IPrimitiveHandler<JToken, JToken>> typeHandlers = null)
         {
-            TypeHandlers = new IPrimitiveHandler<JToken, JToken>[0]
-        };
+            TypeHandlers = typeHandlers ?? new List<IPrimitiveHandler<JToken, JToken>>();
+        }
     }
 }

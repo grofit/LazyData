@@ -1,12 +1,15 @@
-﻿using System.Xml.Linq;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace LazyData.Serialization.Xml
 {
-    public class XmlConfiguration : SerializationConfiguration<XElement, XElement>
+    public class XmlConfiguration : ISerializationConfiguration<XElement, XElement>
     {
-        public static XmlConfiguration Default => new XmlConfiguration
+        public IEnumerable<IPrimitiveHandler<XElement, XElement>> TypeHandlers { get; }
+
+        public XmlConfiguration(IEnumerable<IPrimitiveHandler<XElement, XElement>> typeHandlers = null)
         {
-            TypeHandlers = new IPrimitiveHandler<XElement, XElement>[0]
-        };
+            TypeHandlers = typeHandlers ?? new List<IPrimitiveHandler<XElement, XElement>>();
+        }
     }
 }

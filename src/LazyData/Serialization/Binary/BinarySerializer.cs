@@ -10,11 +10,11 @@ namespace LazyData.Serialization.Binary
         public static readonly byte[] NullDataSig = { 141, 141 };
         public static readonly byte[] NullObjectSig = { 141, 229, 141 };
 
-        protected BinaryPrimitiveSerializer BinaryPrimitiveSerializer { get; private set; }
+        protected BinaryPrimitiveSerializer BinaryPrimitiveSerializer { get; }
 
         public BinarySerializer(IMappingRegistry mappingRegistry, BinaryConfiguration configuration = null) : base(mappingRegistry)
         {
-            Configuration = configuration ?? BinaryConfiguration.Default;
+            Configuration = configuration ?? new BinaryConfiguration();
             BinaryPrimitiveSerializer = new BinaryPrimitiveSerializer();
         }
 

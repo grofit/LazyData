@@ -14,11 +14,11 @@ namespace LazyData.Serialization.Xml
         public const string NullElementName = "IsNull";
         public const string CountElementName = "Count";
 
-        protected XmlPrimitiveSerializer XmlPrimitiveSerializer { get; private set; }
+        protected XmlPrimitiveSerializer XmlPrimitiveSerializer { get; }
 
         public XmlSerializer(IMappingRegistry mappingRegistry, XmlConfiguration configuration = null) : base(mappingRegistry)
         {
-            Configuration = configuration ?? XmlConfiguration.Default;
+            Configuration = configuration ?? new XmlConfiguration();
             XmlPrimitiveSerializer = new XmlPrimitiveSerializer();
         }
 

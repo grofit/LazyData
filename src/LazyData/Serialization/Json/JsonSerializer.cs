@@ -19,7 +19,7 @@ namespace LazyData.Serialization.Json
 
         public JsonSerializer(IMappingRegistry mappingRegistry, JsonConfiguration configuration = null) : base(mappingRegistry)
         {
-            Configuration = configuration ?? JsonConfiguration.Default;
+            Configuration = configuration ?? new JsonConfiguration();
             JsonPrimitiveSerializer = new JsonPrimitiveSerializer();
         }
 

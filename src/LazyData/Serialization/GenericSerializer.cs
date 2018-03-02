@@ -11,12 +11,12 @@ namespace LazyData.Serialization
     public abstract class GenericSerializer<TSerializeState, TDeserializeState> : ISerializer
     {
         public IMappingRegistry MappingRegistry { get; private set; }
-        public SerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+        public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
 
-        protected GenericSerializer(IMappingRegistry mappingRegistry, SerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
+        protected GenericSerializer(IMappingRegistry mappingRegistry, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
         {
             MappingRegistry = mappingRegistry;
-            Configuration = configuration ?? SerializationConfiguration<TSerializeState, TDeserializeState>.Default;
+            Configuration = configuration;
         }
 
         public abstract DataObject Serialize(object data);

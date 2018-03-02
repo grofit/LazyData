@@ -12,13 +12,13 @@ namespace LazyData.Serialization
     {
         public IMappingRegistry MappingRegistry { get; }
         public ITypeCreator TypeCreator { get; }
-        public SerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+        public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
 
-        protected GenericDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, SerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
+        protected GenericDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
         {
             MappingRegistry = mappingRegistry;
             TypeCreator = typeCreator;
-            Configuration = configuration ?? SerializationConfiguration<TSerializeState, TDeserializeState>.Default;
+            Configuration = configuration;
         }
 
         public abstract object Deserialize(DataObject data);
