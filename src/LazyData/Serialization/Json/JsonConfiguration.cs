@@ -5,11 +5,11 @@ namespace LazyData.Serialization.Json
 {
     public class JsonConfiguration : ISerializationConfiguration<JToken, JToken>
     {
-        public IEnumerable<IPrimitiveHandler<JToken, JToken>> TypeHandlers { get; }
+        public IEnumerable<IPrimitiveHandler<JToken, JToken>> PrimitiveHandlers { get; }
 
         public JsonConfiguration(IEnumerable<IPrimitiveHandler<JToken, JToken>> typeHandlers = null)
         {
-            TypeHandlers = typeHandlers ?? new List<IPrimitiveHandler<JToken, JToken>>();
+            PrimitiveHandlers = typeHandlers ?? new List<IPrimitiveHandler<JToken, JToken>>();
         }
     }
 }

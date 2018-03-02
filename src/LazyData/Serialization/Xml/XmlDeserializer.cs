@@ -12,12 +12,11 @@ namespace LazyData.Serialization.Xml
 {
     public class XmlDeserializer : GenericDeserializer<XElement, XElement>, IXmlDeserializer
     {
-        protected XmlPrimitiveDeserializer XmlPrimitiveDeserializer { get; }
+        protected override IPrimitiveHandler<XElement, XElement> DefaultPrimitiveHandler { get; } = new BasicXmlPrimitiveHandler();
 
         public XmlDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, XmlConfiguration configuration = null) : base(mappingRegistry, typeCreator)
         {
             Configuration = configuration ?? new XmlConfiguration();
-            XmlPrimitiveDeserializer = new XmlPrimitiveDeserializer();
         }
 
         protected override bool IsDataNull(XElement state)
@@ -28,10 +27,7 @@ namespace LazyData.Serialization.Xml
 
         protected override int GetCountFromState(XElement state)
         { return int.Parse(state.Attribute("Count").Value); }
-
-        protected override object DeserializeDefaultPrimitive(Type type, XElement element)
-        { return XmlPrimitiveDeserializer.DeserializeDefaultPrimitive(type, element); }
-
+        
         public override object Deserialize(DataObject data)
         {
             var xDoc = XDocument.Parse(data.AsString);

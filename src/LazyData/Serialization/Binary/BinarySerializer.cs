@@ -11,12 +11,11 @@ namespace LazyData.Serialization.Binary
         public static readonly byte[] NullDataSig = { 141, 141 };
         public static readonly byte[] NullObjectSig = { 141, 229, 141 };
 
-        protected BinaryPrimitiveSerializer BinaryPrimitiveSerializer { get; }
+        protected override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
 
         public BinarySerializer(IMappingRegistry mappingRegistry, BinaryConfiguration configuration = null) : base(mappingRegistry)
         {
             Configuration = configuration ?? new BinaryConfiguration();
-            BinaryPrimitiveSerializer = new BinaryPrimitiveSerializer();
         }
 
         protected override void HandleNullData(BinaryWriter state)
@@ -34,9 +33,6 @@ namespace LazyData.Serialization.Binary
             return state;
         }
 
-        protected override void SerializeDefaultPrimitive(object value, Type type, BinaryWriter state)
-        { BinaryPrimitiveSerializer.SerializeDefaultPrimitive(value, type, state); }
-        
         public override DataObject Serialize(object data)
         {
             var typeMapping = MappingRegistry.GetMappingFor(data.GetType());

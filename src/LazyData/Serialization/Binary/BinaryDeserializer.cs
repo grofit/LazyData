@@ -8,12 +8,11 @@ namespace LazyData.Serialization.Binary
 {
     public class BinaryDeserializer : GenericDeserializer<BinaryWriter, BinaryReader>, IBinaryDeserializer
     {
-        protected BinaryPrimitiveDeserializer BinaryPrimitiveDeserializer { get; }
-
+        protected override IPrimitiveHandler<BinaryWriter, BinaryReader> DefaultPrimitiveHandler { get; } = new BasicBinaryPrimitiveHandler();
+        
         public BinaryDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, BinaryConfiguration configuration = null) : base(mappingRegistry, typeCreator)
         {
             Configuration = configuration ?? new BinaryConfiguration();
-            BinaryPrimitiveDeserializer = new BinaryPrimitiveDeserializer();
         }
 
         protected override bool IsDataNull(BinaryReader reader)
@@ -50,10 +49,6 @@ namespace LazyData.Serialization.Binary
         
         protected override int GetCountFromState(BinaryReader state)
         { return state.ReadInt32(); }
-
-        protected override object DeserializeDefaultPrimitive(Type type, BinaryReader reader)
-        { return BinaryPrimitiveDeserializer.DeserializeDefaultPrimitive(type, reader);
-        }
 
         public override object Deserialize(DataObject data)
         {

@@ -16,12 +16,11 @@ namespace LazyData.Serialization.Json
         public const string KeyField = "Key";
         public const string ValueField = "Value";
 
-        protected JsonPrimitiveSerializer JsonPrimitiveSerializer { get; private set; }
-
+        protected override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
+        
         public JsonSerializer(IMappingRegistry mappingRegistry, JsonConfiguration configuration = null) : base(mappingRegistry)
         {
             Configuration = configuration ?? new JsonConfiguration();
-            JsonPrimitiveSerializer = new JsonPrimitiveSerializer();
         }
 
         protected override void HandleNullData(JToken state)
@@ -38,10 +37,7 @@ namespace LazyData.Serialization.Json
             state[TypeField] = type.GetPersistableName();
             return state[DataField] = new JObject();
         }
-
-        protected override void SerializeDefaultPrimitive(object value, Type type, JToken element)
-        { JsonPrimitiveSerializer.SerializeDefaultPrimitive(value, type, element); }
-
+        
         public override DataObject Serialize(object data)
         {
             var node = new JObject();

@@ -10,8 +10,10 @@ namespace LazyData.Serialization
 {
     public abstract class GenericSerializer<TSerializeState, TDeserializeState> : ISerializer
     {
-        public IMappingRegistry MappingRegistry { get; private set; }
+        public IMappingRegistry MappingRegistry { get; }
         public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+
+        protected abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
 
         protected GenericSerializer(IMappingRegistry mappingRegistry, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
         {
@@ -26,7 +28,6 @@ namespace LazyData.Serialization
         protected abstract void HandleNullData(TSerializeState state);
         protected abstract void HandleNullObject(TSerializeState state);
         protected abstract void AddCountToState(TSerializeState state, int count);
-        protected abstract void SerializeDefaultPrimitive(object value, Type type, TSerializeState state);
 
         protected object AttemptGetValue<T>(Mapping mapping, T data, TSerializeState state, bool isObject = true)
         {
@@ -71,25 +72,27 @@ namespace LazyData.Serialization
                 return;
             }
 
-            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(type);
+            var isDefaultPrimitive = DefaultPrimitiveHandler.PrimitiveChecker.IsPrimitive(type);
             if (isDefaultPrimitive)
             {
-                SerializeDefaultPrimitive(value, type, state);
+                DefaultPrimitiveHandler.Serialize(state, value, type);
                 return;
             }
 
+            var actualType = type;
             var possibleNullableType = MappingRegistry.TypeMapper.TypeAnalyzer.GetNullableType(type);
             if (possibleNullableType != null)
             {
-                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(possibleNullableType);
+                actualType = possibleNullableType;
+                var isNullablePrimitive = DefaultPrimitiveHandler.PrimitiveChecker.IsPrimitive(actualType);
                 if (isNullablePrimitive)
                 {
-                    SerializeDefaultPrimitive(value, possibleNullableType, state);
+                    DefaultPrimitiveHandler.Serialize(state, value, actualType);
                     return;
                 }
             }
             
-            var matchingHandler = Configuration.TypeHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
+            var matchingHandler = Configuration.PrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
             if(matchingHandler == null) { throw new NoKnownTypeException(type); }
             matchingHandler.Serialize(state, value, type);
         }

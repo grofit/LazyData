@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using LazyData.Exceptions;
 using LazyData.Mappings;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
@@ -13,6 +14,8 @@ namespace LazyData.Serialization
         public IMappingRegistry MappingRegistry { get; }
         public ITypeCreator TypeCreator { get; }
         public ISerializationConfiguration<TSerializeState, TDeserializeState> Configuration { get; protected set; }
+
+        protected abstract IPrimitiveHandler<TSerializeState, TDeserializeState> DefaultPrimitiveHandler { get; }
 
         protected GenericDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, ISerializationConfiguration<TSerializeState, TDeserializeState> configuration = null)
         {
@@ -27,8 +30,7 @@ namespace LazyData.Serialization
         protected abstract bool IsDataNull(TDeserializeState state);
         protected abstract bool IsObjectNull(TDeserializeState state);
         protected abstract int GetCountFromState(TDeserializeState state);
-        protected abstract object DeserializeDefaultPrimitive(Type type, TDeserializeState state);
-
+        
         protected abstract string GetDynamicTypeNameFromState(TDeserializeState state);
         protected abstract TDeserializeState GetDynamicTypeDataFromState(TDeserializeState state);
 
@@ -37,7 +39,14 @@ namespace LazyData.Serialization
 
         public virtual T Deserialize<T>(DataObject data) where T : new()
         { return (T)Deserialize(data); }
-        
+
+        protected virtual object DeserializeDefaultPrimitive(Type type, TDeserializeState state)
+        {
+            var matchedHandler = Configuration.PrimitiveHandlers.FirstOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
+            if (matchedHandler == null) { throw new Exception($"The primitive matched has no handler: {type}"); }
+            return matchedHandler.Deserialize(state, type);
+        }
+
         protected IList CreateCollectionFromMapping(CollectionMapping mapping, int count)
         {
             if (mapping.IsArray)
@@ -139,23 +148,25 @@ namespace LazyData.Serialization
             if (IsDataNull(state))
             { return null; }
 
-            var isDefaultPrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(type);
+            var isDefaultPrimitive = DefaultPrimitiveHandler.PrimitiveChecker.IsPrimitive(type);
             if (isDefaultPrimitive)
-            { return DeserializeDefaultPrimitive(type, state); }
+            { return DefaultPrimitiveHandler.Deserialize(state, type); }
 
+            var actualType = type;
             var possibleNullableType = MappingRegistry.TypeMapper.TypeAnalyzer.GetNullableType(type);
             if (possibleNullableType != null)
             {
-                var isNullablePrimitive = MappingRegistry.TypeMapper.TypeAnalyzer.IsPrimitiveType(possibleNullableType);
+                actualType = possibleNullableType;
+                var isNullablePrimitive = DefaultPrimitiveHandler.PrimitiveChecker.IsPrimitive(actualType);
                 if(isNullablePrimitive)
-                { return DeserializeDefaultPrimitive(possibleNullableType, state); }
+                { return DefaultPrimitiveHandler.Deserialize(state, possibleNullableType); }
             }
 
-            var matchingHandler = Configuration.TypeHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
+            var matchingHandler = Configuration.PrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
             if (matchingHandler != null)
             { return matchingHandler.Deserialize(state, type); }
 
-            throw new Exception("Type is not primitive or known, cannot deserialize " + type);
+            throw new NoKnownTypeException(type);
         }
 
         protected virtual void DeserializeDictionary<T>(DictionaryMapping mapping, T instance, TDeserializeState state)

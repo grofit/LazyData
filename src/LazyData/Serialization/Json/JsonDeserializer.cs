@@ -12,13 +12,12 @@ namespace LazyData.Serialization.Json
 {
     public class JsonDeserializer : GenericDeserializer<JToken, JToken>, IJsonDeserializer
     {
-        protected JsonPrimitiveDeserializer JsonPrimitiveDeserializer { get; private set; }
+        protected override IPrimitiveHandler<JToken, JToken> DefaultPrimitiveHandler { get; } = new BasicJsonPrimitiveHandler();
 
         public JsonDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, JsonConfiguration configuration = null)
             : base(mappingRegistry, typeCreator)
         {
             Configuration = configuration ?? new JsonConfiguration();
-            JsonPrimitiveDeserializer = new JsonPrimitiveDeserializer();
         }
 
         protected override bool IsDataNull(JToken state)
@@ -38,9 +37,6 @@ namespace LazyData.Serialization.Json
 
         protected override JToken GetDynamicTypeDataFromState(JToken state)
         { return state[JsonSerializer.DataField]; }
-
-        protected override object DeserializeDefaultPrimitive(Type type, JToken state)
-        { return JsonPrimitiveDeserializer.DeserializeDefaultPrimitive(type, state); }
         
         public override object Deserialize(DataObject data)
         {

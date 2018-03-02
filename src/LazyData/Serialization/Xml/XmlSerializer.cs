@@ -15,12 +15,11 @@ namespace LazyData.Serialization.Xml
         public const string NullElementName = "IsNull";
         public const string CountElementName = "Count";
 
-        protected XmlPrimitiveSerializer XmlPrimitiveSerializer { get; }
+        protected override IPrimitiveHandler<XElement, XElement> DefaultPrimitiveHandler { get; } = new BasicXmlPrimitiveHandler();
 
         public XmlSerializer(IMappingRegistry mappingRegistry, XmlConfiguration configuration = null) : base(mappingRegistry)
         {
             Configuration = configuration ?? new XmlConfiguration();
-            XmlPrimitiveSerializer = new XmlPrimitiveSerializer();
         }
 
         protected override void HandleNullData(XElement state)
@@ -38,10 +37,7 @@ namespace LazyData.Serialization.Xml
             state.Add(typeAttribute);
             return state;
         }
-
-        protected override void SerializeDefaultPrimitive(object value, Type type, XElement element)
-        { XmlPrimitiveSerializer.SerializeDefaultPrimitive(value, type, element); }
-
+        
         public override DataObject Serialize(object data)
         {
             var element = new XElement("Container");
