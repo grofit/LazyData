@@ -10,6 +10,7 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LazyData.Numerics\LazyData.Numerics.csproj" />
     <ProjectReference Include="..\LazyData.SuperLazy\LazyData.SuperLazy.csproj">
       <Project>{9ADF5C4D-B71B-46E8-8811-D855259C79BB}</Project>
       <Name>LazyData.SuperLazy</Name>

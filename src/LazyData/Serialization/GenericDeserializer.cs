@@ -164,9 +164,9 @@ namespace LazyData.Serialization
 
             var matchingHandler = CustomPrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
             if (matchingHandler != null)
-            { return matchingHandler.Deserialize(state, type); }
+            { return matchingHandler.Deserialize(state, actualType); }
 
-            throw new NoKnownTypeException(type);
+            throw new NoKnownTypeException(actualType);
         }
 
         protected virtual void DeserializeDictionary<T>(DictionaryMapping mapping, T instance, TDeserializeState state)

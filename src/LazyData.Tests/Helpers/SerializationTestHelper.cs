@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using LazyData.Tests.Models;
 using Newtonsoft.Json.Linq;
 using Assert = LazyData.Tests.Extensions.AssertExtensions;
@@ -115,6 +116,16 @@ namespace LazyData.Tests.Helpers
             model.DynamicDictionary.Add("key1", 62);
             model.DynamicDictionary.Add(new E{IntValue = 99}, 54);
             model.DynamicDictionary.Add(1, new C {FloatValue = 51.0f});
+            return model;
+        }
+
+        public static NumericsTypesModel GenerateNumericsModel()
+        {
+            var model = new NumericsTypesModel();
+            model.NullableVector2Value = model.Vector2Value = Vector2.One;
+            model.NullableVector3Value = model.Vector3Value = Vector3.One;
+            model.NullableVector4Value = model.Vector4Value = Vector4.One;
+            model.NullableQuaternionValue = model.QuaternionValue = new Quaternion(1.0f, 1.0f, 1.0f, 1.0f);
             return model;
         }
 

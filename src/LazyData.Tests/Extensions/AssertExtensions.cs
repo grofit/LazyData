@@ -7,18 +7,18 @@ namespace LazyData.Tests.Extensions
 {
     public class AssertExtensions : Assert
     {
-        public static void AreEqual(object a, object b)
+        public static void AreEqual(object expected, object actual)
         {
-            var obj1Str = JsonConvert.SerializeObject(a);
-            var obj2Str = JsonConvert.SerializeObject(b);
-            Equal(obj1Str, obj2Str);
+            var expectedStr = JsonConvert.SerializeObject(expected);
+            var actualStr = JsonConvert.SerializeObject(actual);
+            Equal(expectedStr, actualStr);
         }
         
-        public static void AreEqual(JObject a, JObject b)
+        public static void AreEqual(JObject expected, JObject actual)
         {
-            var obj1Str = a.ToString();
-            var obj2Str = b.ToString();
-            Equal(obj1Str, obj2Str);
+            var expectedStr = expected.ToString();
+            var actualStr = actual.ToString();
+            Equal(expectedStr, actualStr);
         }
         
         public static void IsRuntimeType<T>(Type type)

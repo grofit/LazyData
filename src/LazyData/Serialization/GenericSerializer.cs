@@ -92,8 +92,8 @@ namespace LazyData.Serialization
             }
             
             var matchingHandler = CustomPrimitiveHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(actualType));
-            if(matchingHandler == null) { throw new NoKnownTypeException(type); }
-            matchingHandler.Serialize(state, value, type);
+            if(matchingHandler == null) { throw new NoKnownTypeException(actualType); }
+            matchingHandler.Serialize(state, value, actualType);
         }
 
         protected virtual void SerializeProperty<T>(PropertyMapping propertyMapping, T data, TSerializeState state)

@@ -21,6 +21,10 @@ namespace LazyData.Mappings.Types
                 PrimitiveRegistry = new PrimitiveRegistry();
                 PrimitiveRegistry.AddPrimitiveCheck(new BasicPrimitiveChecker());
             }
+            else
+            {
+                PrimitiveRegistry = primitiveRegistry;
+            }
 
             Configuration = configuration ?? new TypeAnalyzerConfiguration();
         }
