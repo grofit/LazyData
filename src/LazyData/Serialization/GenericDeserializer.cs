@@ -151,9 +151,9 @@ namespace LazyData.Serialization
                 { return DeserializeDefaultPrimitive(possibleNullableType, state); }
             }
 
-            var matchingHandler = Configuration.TypeHandlers.SingleOrDefault(x => x.MatchesType(type));
+            var matchingHandler = Configuration.TypeHandlers.SingleOrDefault(x => x.PrimitiveChecker.IsPrimitive(type));
             if (matchingHandler != null)
-            { return matchingHandler.HandleTypeDeserialization(state, type); }
+            { return matchingHandler.Deserialize(state, type); }
 
             throw new Exception("Type is not primitive or known, cannot deserialize " + type);
         }

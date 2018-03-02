@@ -6,7 +6,7 @@ namespace LazyData.Serialization.Binary
     {
         public static BinaryConfiguration Default => new BinaryConfiguration
         {
-            TypeHandlers = new ITypeHandler<BinaryWriter, BinaryReader>[0]
+            TypeHandlers = new IPrimitiveHandler<BinaryWriter, BinaryReader>[0]
         };
     }
 }

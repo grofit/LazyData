@@ -12,14 +12,14 @@ namespace LazyData.Mappings.Types
     public class TypeAnalyzer : ITypeAnalyzer
     {
         public TypeAnalyzerConfiguration Configuration { get; }
-        public IPrimitiveHandler PrimitiveHandler { get; }
+        public IPrimitiveRegistry PrimitiveRegistry { get; }
 
-        public TypeAnalyzer(IPrimitiveHandler primitiveHandler = null, TypeAnalyzerConfiguration configuration = null)
+        public TypeAnalyzer(IPrimitiveRegistry primitiveRegistry = null, TypeAnalyzerConfiguration configuration = null)
         {
-            if (primitiveHandler == null)
+            if (primitiveRegistry == null)
             {
-                PrimitiveHandler = new PrimitiveHandler();
-                PrimitiveHandler.AddPrimitiveCheck(new BasicPrimitiveChecker());
+                PrimitiveRegistry = new PrimitiveRegistry();
+                PrimitiveRegistry.AddPrimitiveCheck(new BasicPrimitiveChecker());
             }
 
             Configuration = configuration ?? new TypeAnalyzerConfiguration();
@@ -70,6 +70,6 @@ namespace LazyData.Mappings.Types
         { return Nullable.GetUnderlyingType(possibleNullable); }
 
         public bool IsPrimitiveType(Type type)
-        { return PrimitiveHandler.IsKnownPrimitive(type); }
+        { return PrimitiveRegistry.IsKnownPrimitive(type); }
     }
 }

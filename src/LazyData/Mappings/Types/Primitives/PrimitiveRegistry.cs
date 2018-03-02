@@ -5,13 +5,13 @@ using LazyData.Mappings.Types.Primitives.Checkers;
 
 namespace LazyData.Mappings.Types.Primitives
 {
-    public class PrimitiveHandler : IPrimitiveHandler
+    public class PrimitiveRegistry : IPrimitiveRegistry
     {
         private readonly IList<IPrimitiveChecker> _primitiveChecks;
         
         public IEnumerable<IPrimitiveChecker> PrimitiveChecks => _primitiveChecks;
 
-        public PrimitiveHandler(params IPrimitiveChecker[] primitiveCheckers)
+        public PrimitiveRegistry(params IPrimitiveChecker[] primitiveCheckers)
         { _primitiveChecks = primitiveCheckers.ToList(); }
 
         public void AddPrimitiveCheck(IPrimitiveChecker primitiveCheck)

@@ -6,7 +6,7 @@ namespace LazyData.Serialization.Xml
     {
         public static XmlConfiguration Default => new XmlConfiguration
         {
-            TypeHandlers = new ITypeHandler<XElement, XElement>[0]
+            TypeHandlers = new IPrimitiveHandler<XElement, XElement>[0]
         };
     }
 }

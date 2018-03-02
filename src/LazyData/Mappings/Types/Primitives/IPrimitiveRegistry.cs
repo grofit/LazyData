@@ -4,7 +4,7 @@ using LazyData.Mappings.Types.Primitives.Checkers;
 
 namespace LazyData.Mappings.Types.Primitives
 {
-    public interface IPrimitiveHandler
+    public interface IPrimitiveRegistry
     {
         IEnumerable<IPrimitiveChecker> PrimitiveChecks { get; }
         void AddPrimitiveCheck(IPrimitiveChecker primitiveCheck);

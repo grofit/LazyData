@@ -6,7 +6,7 @@ namespace LazyData.Serialization.Json
     {
         public static JsonConfiguration Default => new JsonConfiguration
         {
-            TypeHandlers = new ITypeHandler<JToken, JToken>[0]
+            TypeHandlers = new IPrimitiveHandler<JToken, JToken>[0]
         };
     }
 }
