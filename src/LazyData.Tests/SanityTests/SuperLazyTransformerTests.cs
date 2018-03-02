@@ -9,7 +9,7 @@ namespace LazyData.Tests.SanityTests
 {
     public class SuperLazyTransformerTests
     {
-        private ITestOutputHelper testOutputHelper;
+        private readonly ITestOutputHelper testOutputHelper;
 
         public SuperLazyTransformerTests(ITestOutputHelper testOutputHelper)
         {

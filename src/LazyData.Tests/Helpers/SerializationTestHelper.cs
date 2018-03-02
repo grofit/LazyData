@@ -42,7 +42,7 @@ namespace LazyData.Tests.Helpers
                 }
             };
 
-            a.AllTypes = new D
+            a.AllTypes = new CommonTypesModel
             {
                 ByteValue = byte.MaxValue,
                 ShortValue = short.MaxValue,
@@ -50,6 +50,7 @@ namespace LazyData.Tests.Helpers
                 LongValue = long.MaxValue,
                 GuidValue = Guid.NewGuid(),
                 DateTimeValue = DateTime.MaxValue,
+                TimeSpanValue = TimeSpan.FromMilliseconds(10),
                 SomeType = SomeTypes.Known
             };
 

@@ -9,6 +9,7 @@ using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace LazyData.Tests.Serialization
 {
@@ -16,9 +17,11 @@ namespace LazyData.Tests.Serialization
     {
         private IMappingRegistry _mappingRegistry;
         private ITypeCreator _typeCreator;
+        private ITestOutputHelper _outputHelper;
 
-        public NulledModelSerializationTests()
+        public NulledModelSerializationTests(ITestOutputHelper outputHelper)
         {
+            _outputHelper = outputHelper;
             _typeCreator = new TypeCreator();
 
             var analyzer = new TypeAnalyzer();
@@ -33,7 +36,7 @@ namespace LazyData.Tests.Serialization
             var serializer = new DebugSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine(output.AsString);
+            _outputHelper.WriteLine(output.AsString);
         }
         
         [Fact]
@@ -43,8 +46,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            _outputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            _outputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<ComplexModel>(output);
@@ -59,8 +62,8 @@ namespace LazyData.Tests.Serialization
             var serializer = new JsonSerializer(_mappingRegistry);
 
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            _outputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            _outputHelper.WriteLine(output.AsString);
 
             var deserializer = new JsonDeserializer(_mappingRegistry, _typeCreator);
             var result = new ComplexModel();
@@ -76,8 +79,8 @@ namespace LazyData.Tests.Serialization
 
             var serializer = new BinarySerializer(_mappingRegistry);
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsBytes.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            _outputHelper.WriteLine("FileSize: " + output.AsBytes.Length + " bytes");
+            _outputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<ComplexModel>(output);
@@ -92,8 +95,8 @@ namespace LazyData.Tests.Serialization
 
             var serializer = new BinarySerializer(_mappingRegistry);
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsBytes.Length + " bytes");
-            Console.WriteLine(BitConverter.ToString(output.AsBytes));
+            _outputHelper.WriteLine("FileSize: " + output.AsBytes.Length + " bytes");
+            _outputHelper.WriteLine(BitConverter.ToString(output.AsBytes));
 
             var deserializer = new BinaryDeserializer(_mappingRegistry, _typeCreator);
             var result = new ComplexModel();
@@ -109,8 +112,8 @@ namespace LazyData.Tests.Serialization
 
             var serializer = new XmlSerializer(_mappingRegistry);
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            _outputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            _outputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var result = deserializer.Deserialize<ComplexModel>(output);
@@ -125,8 +128,8 @@ namespace LazyData.Tests.Serialization
 
             var serializer = new XmlSerializer(_mappingRegistry);
             var output = serializer.Serialize(model);
-            Console.WriteLine("FileSize: " + output.AsString.Length + " bytes");
-            Console.WriteLine(output.AsString);
+            _outputHelper.WriteLine("FileSize: " + output.AsString.Length + " bytes");
+            _outputHelper.WriteLine(output.AsString);
 
             var deserializer = new XmlDeserializer(_mappingRegistry, _typeCreator);
             var result = new ComplexModel();

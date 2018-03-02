@@ -21,7 +21,7 @@ namespace LazyData.Tests.Models
         public IList<string> Stuff { get; set; }
 
         [PersistData]
-        public D AllTypes { get; set; }
+        public CommonTypesModel AllTypes { get; set; }
 
         [PersistData]
         public IDictionary<string, string> SimpleDictionary { get; set; }

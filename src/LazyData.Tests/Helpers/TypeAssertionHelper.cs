@@ -40,7 +40,7 @@ namespace LazyData.Tests.Helpers
             Assert.Equal(0, stuffMapping.InternalMappings.Count);
 
             var allTypesMapping = mappings[4] as NestedMapping;
-            Assert.IsRuntimeType<D>(allTypesMapping.Type);
+            Assert.IsRuntimeType<CommonTypesModel>(allTypesMapping.Type);
             Assert.Equal("AllTypes", allTypesMapping.LocalName);
             Assert.False(allTypesMapping.IsDynamicType);
             Assert.Empty(allTypesMapping.MetaData);
@@ -105,7 +105,7 @@ namespace LazyData.Tests.Helpers
 
         public static void AssertDModel(IList<Mapping> mappings)
         {
-            Assert.Equal(7, mappings.Count);
+            Assert.Equal(8, mappings.Count);
 
             var byteValueMapping = mappings[0] as PropertyMapping;
             Assert.NotNull(byteValueMapping);
@@ -137,7 +137,12 @@ namespace LazyData.Tests.Helpers
             Assert.IsRuntimeType<DateTime>(dateTimeValueMapping.Type);
             Assert.Equal("DateTimeValue", dateTimeValueMapping.LocalName);
 
-            var someTypeMapping = mappings[6] as PropertyMapping;
+            var timespanValueMapping = mappings[6] as PropertyMapping;
+            Assert.NotNull(timespanValueMapping);
+            Assert.IsRuntimeType<TimeSpan>(timespanValueMapping.Type);
+            Assert.Equal("TimeSpanValue", timespanValueMapping.LocalName);
+
+            var someTypeMapping = mappings[7] as PropertyMapping;
             Assert.NotNull(someTypeMapping);
             Assert.IsRuntimeType<SomeTypes>(someTypeMapping.Type);
             Assert.Equal("SomeType", someTypeMapping.LocalName);

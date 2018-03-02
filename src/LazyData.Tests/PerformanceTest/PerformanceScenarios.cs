@@ -16,7 +16,7 @@ namespace LazyData.Tests.PerformanceTest
     public class PerformanceScenarios
     {
         const int Iterations = 10000;
-        private ITestOutputHelper testOutputHelper;
+        private readonly ITestOutputHelper testOutputHelper;
 
         public PerformanceScenarios(ITestOutputHelper testOutputHelper)
         {
