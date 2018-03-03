@@ -105,7 +105,7 @@ This was originally part of the [Persistity library](https://github.com/grofit/p
 The original focus of this library was to provide a consistent way to pass data around and convert/transform it between formats and types easily however as the serialization pieces can be used in isolation purely for serialization 
 
 
-[build-status-image]: https://travis-ci.org/grofit/LazyData.svg
+[build-status-image]: https://travis-ci.org/grofit/LazyData.svg?branch=master
 [build-status-url]: https://travis-ci.org/grofit/LazyData
 [gitter-image]: https://badges.gitter.im/grofit/persistity.svg
 [gitter-url]: https://gitter.im/grofit/persistity
