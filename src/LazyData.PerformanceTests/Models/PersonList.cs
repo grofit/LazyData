@@ -1,4 +1,4 @@
-﻿namespace LazyData.Tests.PerformanceTest
+﻿namespace LazyData.PerformanceTests.Models
 {
     public class PersonList
     {
