@@ -7,3 +7,4 @@ packages/
 .idea
 
 *.nupkg
+/src/LazyData.PerformanceTests/BenchmarkDotNet.Artifacts

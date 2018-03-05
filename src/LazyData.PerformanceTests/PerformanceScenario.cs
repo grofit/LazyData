@@ -1,28 +1,107 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.Generic;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes.Jobs;
 using LazyData.Mappings.Mappers;
 using LazyData.Mappings.Types;
+using LazyData.PerformanceTests.Models;
 using LazyData.Registries;
 using LazyData.Serialization;
 using LazyData.Serialization.Binary;
 using LazyData.Serialization.Json;
 using LazyData.Serialization.Xml;
-using LazyData.Tests.Helpers;
-using Xunit;
-using Xunit.Abstractions;
 
-namespace LazyData.Tests.PerformanceTest
+namespace LazyData.PerformanceTests
 {
-    public class PerformanceScenarios
+    //[ClrJob(isBaseline: true), CoreJob, MonoJob]
+    [Config(typeof(PerformanceConfig))]
+    public class PerformanceScenario
     {
-        const int Iterations = 10000;
-        private readonly ITestOutputHelper testOutputHelper;
+        [Params(1, 1000)]
+        public int Iterations;
 
-        public PerformanceScenarios(ITestOutputHelper testOutputHelper)
+        private IBinarySerializer _binarySerializer;
+        private IBinaryDeserializer _binaryDeserializer;
+
+        private IJsonSerializer _jsonSerializer;
+        private IJsonDeserializer _jsonDeserializer;
+
+        private IXmlSerializer _xmlSerializer;
+        private IXmlDeserializer _xmlDeserializer;
+
+        [GlobalSetup]
+        public void Setup()
         {
-            this.testOutputHelper = testOutputHelper;
+            var typeCreator = new TypeCreator();
+            var typeAnalyzer = new TypeAnalyzer();
+            var typeMapper = new EverythingTypeMapper(typeAnalyzer);
+            var mappingRegistry = new MappingRegistry(typeMapper);
+
+            _binarySerializer = new BinarySerializer(mappingRegistry);
+            _binaryDeserializer = new BinaryDeserializer(mappingRegistry, typeCreator);
+
+            _jsonSerializer = new JsonSerializer(mappingRegistry);
+            _jsonDeserializer = new JsonDeserializer(mappingRegistry, typeCreator);
+
+            _xmlSerializer = new XmlSerializer(mappingRegistry);
+            _xmlDeserializer = new XmlDeserializer(mappingRegistry, typeCreator);
         }
 
+        private DataObject SerializeModel(object model, ISerializer serializer)
+        {return serializer.Serialize(model); }
+
+        private void DeserializeModel(DataObject data, IDeserializer serializer)
+        { serializer.Deserialize(data); }
+
+        private DataObject SerializeModelList(object modelList, ISerializer serializer)
+        {
+            return serializer.Serialize(modelList);
+        }
+
+        private Person CreatePerson()
+        {
+            return new Person
+            {
+                Age = 99999,
+                FirstName = "John",
+                LastName = "Doe",
+                Sex = Sex.Male,
+            };
+        }
+        
+        [Benchmark]
+        public void IterateBinarySerialization()
+        {
+            var model = CreatePerson();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _binarySerializer);
+                DeserializeModel(dataObject, _binaryDeserializer);
+            }
+        }
+
+        [Benchmark]
+        public void IterateJsonSerialization()
+        {
+            var model = CreatePerson();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _jsonSerializer);
+                DeserializeModel(dataObject, _jsonDeserializer);
+            }
+        }
+
+        [Benchmark]
+        public void IterateXmlSerialization()
+        {
+            var model = CreatePerson();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _xmlSerializer);
+                DeserializeModel(dataObject, _xmlDeserializer);
+            }
+        }
+
+        /*
         private void RunSerializeAndDeserializeStep(object model, object modelList, ISerializer serializer, IDeserializer deserializer)
         {
             var startTime = DateTime.Now;
@@ -147,6 +226,6 @@ namespace LazyData.Tests.PerformanceTest
             var mappingRegistry = new MappingRegistry(typeMapper);
 
             RunStepsForFormats(mappingRegistry, model, modelList);
-        }
+        }*/
     }
 }

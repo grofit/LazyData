@@ -1,6 +1,6 @@
 using LazyData.Tests.Models;
 
-namespace LazyData.Tests.PerformanceTest
+namespace LazyData.PerformanceTests.Models
 {
     public class DynamicModelList
     {
