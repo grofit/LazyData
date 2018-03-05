@@ -10,7 +10,7 @@ namespace LazyData.Mappings.Types
         protected readonly Type Dictionarytype = typeof(Dictionary<,>);
         protected readonly Type ListType = typeof(List<>);
 
-        public IDictionary<string, Type> TypeCache { get; private set; }
+        public IDictionary<string, Type> TypeCache { get; }
 
         public TypeCreator()
         {
