@@ -63,7 +63,7 @@ namespace LazyData.Serialization
             return outputValue;
         }
 
-        protected virtual void SerializePrimitive(object value, Type type, TSerializeState state)
+        protected virtual void SerializePrimitive<T>(T value, Type type, TSerializeState state)
         {
             if (value == null)
             {
