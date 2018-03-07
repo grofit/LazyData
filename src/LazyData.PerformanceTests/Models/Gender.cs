@@ -1,6 +1,6 @@
 ﻿namespace LazyData.PerformanceTests.Models
 {
-    public enum Sex// : sbyte
+    public enum Gender
     {
         Unknown, Male, Female,
     }

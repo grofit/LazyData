@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Attributes.Jobs;
@@ -60,8 +61,34 @@ namespace LazyData.PerformanceTests
                 Age = 99999,
                 FirstName = "John",
                 LastName = "Doe",
-                Sex = Sex.Male,
+                Gender = Gender.Male,
             };
+        }
+
+        private PersonList CreatePersonList()
+        {
+            return new PersonList
+            {
+                Models = Enumerable.Range(0, Iterations).Select(x => CreatePerson()).ToArray()
+            };
+        }
+
+        private DynamicTypesModel CreateDynamicModel()
+        {
+            var model = new DynamicTypesModel();
+            model.DynamicNestedProperty = CreatePerson();
+            model.DynamicPrimitiveProperty = 12;
+
+            model.DynamicList = new List<object>();
+            model.DynamicList.Add(CreatePerson());
+            model.DynamicList.Add("Hello");
+            model.DynamicList.Add(20);
+
+            model.DynamicDictionary = new Dictionary<object, object>();
+            model.DynamicDictionary.Add("key1", 62);
+            model.DynamicDictionary.Add(CreatePerson(), 54);
+            model.DynamicDictionary.Add(1, CreatePerson());
+            return model;            
         }
         
         [Benchmark]
@@ -90,6 +117,64 @@ namespace LazyData.PerformanceTests
         public void IterateXmlSerialization()
         {
             var model = CreatePerson();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _xmlSerializer);
+                DeserializeModel(dataObject, _xmlDeserializer);
+            }
+        }
+
+        [Benchmark]
+        public void CollectionBinarySerialization()
+        {
+            var model = CreatePersonList();
+            var dataObject = SerializeModel(model, _binarySerializer);
+            DeserializeModel(dataObject, _binaryDeserializer);
+        }
+
+        [Benchmark]
+        public void CollectionJsonSerialization()
+        {
+            var model = CreatePersonList();
+            var dataObject = SerializeModel(model, _jsonSerializer);
+            DeserializeModel(dataObject, _jsonDeserializer);
+            
+        }
+
+        [Benchmark]
+        public void CollectionXmlSerialization()
+        {
+            var model = CreatePersonList();
+            var dataObject = SerializeModel(model, _xmlSerializer);
+            DeserializeModel(dataObject, _xmlDeserializer);            
+        }
+
+        [Benchmark]
+        public void DynamicBinarySerialization()
+        {
+            var model = CreateDynamicModel();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _binarySerializer);
+                DeserializeModel(dataObject, _binaryDeserializer);
+            }
+        }
+
+        [Benchmark]
+        public void DynamicJsonSerialization()
+        {
+            var model = CreateDynamicModel();
+            for (var i = 0; i < Iterations; i++)
+            {
+                var dataObject = SerializeModel(model, _jsonSerializer);
+                DeserializeModel(dataObject, _jsonDeserializer);
+            }
+        }
+
+        [Benchmark]
+        public void DynamicXmlSerialization()
+        {
+            var model = CreateDynamicModel();
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _xmlSerializer);
