@@ -4,7 +4,7 @@ A quick data (de)serialization framework for varying data formats in .net with a
 
 [![Build Status][build-status-image]][build-status-url]
 [![Nuget Package][nuget-image]][nuget-url]
-[![Join Gitter Chat][gitter-image]][gitter-url]
+[![Join Discord Chat][discord-image]][discord-url]
 
 Formats supported
 
@@ -107,7 +107,7 @@ The original focus of this library was to provide a consistent way to pass data 
 
 [build-status-image]: https://ci.appveyor.com/api/projects/status/sn2vsn0vfib14emg?svg=true
 [build-status-url]: https://ci.appveyor.com/project/grofit/lazydata/branch/master
-[gitter-image]: https://badges.gitter.im/grofit/persistity.svg
-[gitter-url]: https://gitter.im/grofit/persistity
 [nuget-image]: https://img.shields.io/nuget/v/LazyData.svg?style=flat-square
 [nuget-url]: https://www.nuget.org/packages/LazyData/
+[discord-image]: https://img.shields.io/discord/488609938399297536.svg
+[discord-url]: https://discord.gg/bS2rnGz
