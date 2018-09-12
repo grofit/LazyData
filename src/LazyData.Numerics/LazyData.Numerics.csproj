@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <Title>LazyData.Numerics</Title>
+    <Authors>Grofit (LP)</Authors>
+    <PackageLicenseUrl>https://github.com/grofit/lazydata/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/grofit/lazydata</PackageProjectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <Description>Add default handling for System.Numerics.Vectors</Description>
+    <PackageTags>serialization game-development json xml binary</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +19,10 @@
     <Reference Include="System.Numerics.Vectors">
       <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\ref\netcoreapp2.0\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

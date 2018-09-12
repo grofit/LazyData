@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <Title>LazyData.SuperLazy</Title>
+    <Authors>Grofit (LP)</Authors>
+    <PackageLicenseUrl>https://github.com/grofit/lazydata/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/grofit/lazydata</PackageProjectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <Description>A super lazy helper class to statically access serializers</Description>
+    <PackageTags>serialization game-development json xml binary</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LazyData\LazyData.csproj">
