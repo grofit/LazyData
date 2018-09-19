@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Numerics;
+using LazyData.Json.Handlers;
 using LazyData.Mappings.Types.Primitives.Checkers;
 using LazyData.Numerics.Checkers;
-using LazyData.Serialization.Json.Handlers;
 using Newtonsoft.Json.Linq;
 
 namespace LazyData.Numerics.Handlers

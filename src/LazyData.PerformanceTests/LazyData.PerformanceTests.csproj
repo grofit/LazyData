@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LazyData.Binary\LazyData.Binary.csproj" />
+    <ProjectReference Include="..\LazyData.Json\LazyData.Json.csproj" />
+    <ProjectReference Include="..\LazyData.Xml\LazyData.Xml.csproj" />
     <ProjectReference Include="..\LazyData\LazyData.csproj" />
-    <PackageReference Include="BenchmarkDotNet" Version="0.10.13" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.1" />
   </ItemGroup>
 
 </Project>

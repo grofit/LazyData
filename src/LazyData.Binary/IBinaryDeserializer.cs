@@ -1,4 +1,6 @@
-﻿namespace LazyData.Serialization.Binary
+﻿using LazyData.Serialization;
+
+namespace LazyData.Binary
 {
     public interface IBinaryDeserializer : IDeserializer { }
 }

@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using LazyData.Extensions;
 using LazyData.Mappings.Types.Primitives.Checkers;
 
-namespace LazyData.Serialization.Xml.Handlers
+namespace LazyData.Xml.Handlers
 {
     public class BasicXmlPrimitiveHandler : IXmlPrimitiveHandler
     {

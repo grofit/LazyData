@@ -1,8 +1,8 @@
 ﻿using System;
+using LazyData.Json;
 using LazyData.Mappings.Mappers;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
-using LazyData.Serialization.Json;
 using LazyData.Tests.Models;
 using Xunit;
 using Xunit.Abstractions;

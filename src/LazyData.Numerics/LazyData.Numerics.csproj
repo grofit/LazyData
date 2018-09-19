@@ -13,6 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LazyData.Binary\LazyData.Binary.csproj" />
+    <ProjectReference Include="..\LazyData.Json\LazyData.Json.csproj" />
+    <ProjectReference Include="..\LazyData.Xml\LazyData.Xml.csproj" />
     <ProjectReference Include="..\LazyData\LazyData.csproj" />
   </ItemGroup>
 

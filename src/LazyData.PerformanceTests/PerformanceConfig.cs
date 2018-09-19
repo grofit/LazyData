@@ -3,6 +3,7 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
+using LazyData.PerformanceTests.Diagnosers;
 
 namespace LazyData.PerformanceTests
 {
@@ -12,6 +13,7 @@ namespace LazyData.PerformanceTests
         {
             Add(MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
+            Add(new DotTraceDiagnoser());
 
             var baseConfig = Job.ShortRun.WithLaunchCount(1).WithTargetCount(1).WithWarmupCount(1);
             Add(baseConfig.With(Runtime.Core).With(Platform.X64));

@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
+using LazyData.Serialization;
 
-namespace LazyData.Serialization.Xml.Handlers
+namespace LazyData.Xml.Handlers
 {
     public interface IXmlPrimitiveHandler : IPrimitiveHandler<XElement, XElement>
     {}

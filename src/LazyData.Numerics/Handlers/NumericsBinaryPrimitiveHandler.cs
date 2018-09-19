@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Numerics;
+using LazyData.Binary.Handlers;
 using LazyData.Mappings.Types.Primitives.Checkers;
 using LazyData.Numerics.Checkers;
-using LazyData.Serialization.Binary.Handlers;
 
 namespace LazyData.Numerics.Handlers
 {

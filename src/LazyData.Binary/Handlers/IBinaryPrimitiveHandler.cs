@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using LazyData.Serialization;
 
-namespace LazyData.Serialization.Binary.Handlers
+namespace LazyData.Binary.Handlers
 {
     public interface IBinaryPrimitiveHandler : IPrimitiveHandler<BinaryWriter, BinaryReader>
     {}

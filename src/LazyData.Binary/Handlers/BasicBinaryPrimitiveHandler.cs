@@ -2,7 +2,7 @@
 using System.IO;
 using LazyData.Mappings.Types.Primitives.Checkers;
 
-namespace LazyData.Serialization.Binary.Handlers
+namespace LazyData.Binary.Handlers
 {
     public class BasicBinaryPrimitiveHandler : IBinaryPrimitiveHandler
     {

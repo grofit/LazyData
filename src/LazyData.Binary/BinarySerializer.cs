@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using LazyData.Binary.Handlers;
 using LazyData.Extensions;
 using LazyData.Registries;
-using LazyData.Serialization.Binary.Handlers;
+using LazyData.Serialization;
 
-namespace LazyData.Serialization.Binary
+namespace LazyData.Binary
 {
     public class BinarySerializer : GenericSerializer<BinaryWriter, BinaryReader>, IBinarySerializer
     {
