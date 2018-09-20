@@ -10,7 +10,4 @@
     <Description>Fast serializer supporting multiple formats targetting game developers</Description>
     <PackageTags>serialization game-development json xml binary</PackageTags>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="8.0.3" />
-  </ItemGroup>
 </Project>

@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
+using LazyData.Binary;
+using LazyData.Json;
 using LazyData.Mappings.Mappers;
 using LazyData.Mappings.Types;
 using LazyData.PerformanceTests.Models;
 using LazyData.Registries;
 using LazyData.Serialization;
-using LazyData.Serialization.Binary;
-using LazyData.Serialization.Json;
-using LazyData.Serialization.Xml;
+using LazyData.Xml;
 
 namespace LazyData.PerformanceTests
 {
@@ -43,7 +41,7 @@ namespace LazyData.PerformanceTests
             _jsonSerializer = new JsonSerializer(mappingRegistry);
             _jsonDeserializer = new JsonDeserializer(mappingRegistry, typeCreator);
 
-            _xmlSerializer = new Serialization.Xml.XmlSerializer(mappingRegistry);
+            _xmlSerializer = new XmlSerializer(mappingRegistry);
             _xmlDeserializer = new XmlDeserializer(mappingRegistry, typeCreator);
         }
 

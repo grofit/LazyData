@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using LazyData.Extensions;
+using LazyData.Json.Handlers;
 using LazyData.Mappings;
 using LazyData.Registries;
-using LazyData.Serialization.Json.Handlers;
+using LazyData.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace LazyData.Serialization.Json
+namespace LazyData.Json
 {
    public class JsonSerializer : GenericSerializer<JToken, JToken>, IJsonSerializer
     {

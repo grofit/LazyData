@@ -3,7 +3,7 @@ using LazyData.Extensions;
 using LazyData.Mappings.Types.Primitives.Checkers;
 using Newtonsoft.Json.Linq;
 
-namespace LazyData.Serialization.Json.Handlers
+namespace LazyData.Json.Handlers
 {
     public class BasicJsonPrimitiveHandler : IJsonPrimitiveHandler
     {

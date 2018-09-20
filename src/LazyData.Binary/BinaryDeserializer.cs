@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using LazyData.Binary.Handlers;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
-using LazyData.Serialization.Binary.Handlers;
+using LazyData.Serialization;
 
-namespace LazyData.Serialization.Binary
+namespace LazyData.Binary
 {
     public class BinaryDeserializer : GenericDeserializer<BinaryWriter, BinaryReader>, IBinaryDeserializer
     {

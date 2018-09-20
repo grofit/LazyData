@@ -1,9 +1,9 @@
-﻿using LazyData.Mappings.Mappers;
+﻿using LazyData.Binary;
+using LazyData.Json;
+using LazyData.Mappings.Mappers;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
-using LazyData.Serialization.Binary;
-using LazyData.Serialization.Json;
-using LazyData.Serialization.Xml;
+using LazyData.Xml;
 
 namespace LazyData.SuperLazy
 {

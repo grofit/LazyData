@@ -8,9 +8,11 @@ A quick data (de)serialization framework for varying data formats in .net with a
 
 Formats supported
 
-- Json (via some JSON.Net implementation)
 - Xml
 - Binary
+- Json (via some JSON.Net implementation)
+- Bson (built on top of the Json Serializer, *Experimental*)
+- Yaml (built on top of the Json Serializer, *Experimental*)
 
 If you are interested in how the outputs would look take a look [here](docs/example-outputs.md)
 

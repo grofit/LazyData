@@ -1,4 +1,9 @@
-set version=0.2.0
+set version=0.3.0
 dotnet pack ../src/LazyData -c Release -o ../../_dist /p:version=%version%
+dotnet pack ../src/LazyData.Xml -c Release -o ../../_dist /p:version=%version%
+dotnet pack ../src/LazyData.Binary -c Release -o ../../_dist /p:version=%version%
+dotnet pack ../src/LazyData.Json -c Release -o ../../_dist /p:version=%version%
+dotnet pack ../src/LazyData.Bson -c Release -o ../../_dist /p:version=%version%
+dotnet pack ../src/LazyData.Yaml -c Release -o ../../_dist /p:version=%version%
 dotnet pack ../src/LazyData.Numerics -c Release -o ../../_dist /p:version=%version%
 dotnet pack ../src/LazyData.SuperLazy -c Release -o ../../_dist /p:version=%version%

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Version>0.0.0</Version>
+        <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+        <Title>LazyData.Bson</Title>
+        <Authors>Grofit (LP)</Authors>
+        <PackageLicenseUrl>https://github.com/grofit/lazydata/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/grofit/lazydata</PackageProjectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <Description>Bson serializer for use with LazyData</Description>
+        <PackageTags>serialization game-development bson</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LazyData.Json\LazyData.Json.csproj" />
+      <ProjectReference Include="..\LazyData\LazyData.csproj" />
+    </ItemGroup>
+    
+</Project>

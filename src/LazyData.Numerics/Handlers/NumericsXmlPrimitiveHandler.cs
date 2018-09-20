@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Xml.Linq;
 using LazyData.Mappings.Types.Primitives.Checkers;
 using LazyData.Numerics.Checkers;
-using LazyData.Serialization.Xml.Handlers;
+using LazyData.Xml.Handlers;
 
 namespace LazyData.Numerics.Handlers
 {

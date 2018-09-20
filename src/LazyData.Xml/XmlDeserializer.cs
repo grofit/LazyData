@@ -6,9 +6,10 @@ using System.Xml.Linq;
 using LazyData.Mappings;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
-using LazyData.Serialization.Xml.Handlers;
+using LazyData.Serialization;
+using LazyData.Xml.Handlers;
 
-namespace LazyData.Serialization.Xml
+namespace LazyData.Xml
 {
     public class XmlDeserializer : GenericDeserializer<XElement, XElement>, IXmlDeserializer
     {

@@ -1,12 +1,12 @@
 ﻿using System;
+using LazyData.Binary;
+using LazyData.Json;
 using LazyData.Mappings.Mappers;
 using LazyData.Mappings.Types;
 using LazyData.Registries;
-using LazyData.Serialization.Binary;
-using LazyData.Serialization.Json;
-using LazyData.Serialization.Xml;
 using LazyData.Tests.Helpers;
 using LazyData.Tests.Models;
+using LazyData.Xml;
 using Xunit;
 using Xunit.Abstractions;
 
