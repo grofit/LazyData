@@ -16,10 +16,12 @@ namespace LazyData.PerformanceTests
             Add(MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
 
-            this.With(new SummaryStyle {TimeUnit = TimeUnit.Millisecond, SizeUnit = SizeUnit.KB, PrintUnitsInHeader = true, PrintUnitsInContent = true});
-            
-            var baseConfig = Job.ShortRun.WithLaunchCount(1).WithTargetCount(1).WithWarmupCount(1);
-            Add(baseConfig.With(Runtime.Core).With(Platform.X64));
+            var job = Job.ShortRun.WithLaunchCount(1)
+                .WithTargetCount(1)
+                .WithWarmupCount(1)
+                .With(Runtime.Core)
+                .With(Platform.X64);
+            Add(job);
         }
     }
 }
