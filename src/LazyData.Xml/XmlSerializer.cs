@@ -13,8 +13,13 @@ namespace LazyData.Xml
     public class XmlSerializer : GenericSerializer<XElement, XElement>, IXmlSerializer
     {
         public const string TypeAttributeName = "Type";
-        public const string NullElementName = "IsNull";
-        public const string CountElementName = "Count";
+        public const string NullAttributeName = "IsNull";
+        public const string CountAttributeName = "Count";
+        public const string KeyElementName = "Key";
+        public const string ValueElementName = "Value";
+        public const string KeyValuePairElementName = "KeyValuePair";
+        public const string CollectionElementName = "Collection";
+        public const string ContainerElementName = "Container";
 
         public override IPrimitiveHandler<XElement, XElement> DefaultPrimitiveHandler { get; } = new BasicXmlPrimitiveHandler();
 
@@ -22,13 +27,13 @@ namespace LazyData.Xml
         {}
 
         protected override void HandleNullData(XElement state)
-        { state.Add(new XAttribute(NullElementName, true)); }
+        { state.Add(new XAttribute(NullAttributeName, true)); }
 
         protected override void HandleNullObject(XElement state)
         { HandleNullData(state); }
 
         protected override void AddCountToState(XElement state, int count)
-        { state.Add(new XAttribute(CountElementName, count)); }
+        { state.Add(new XAttribute(CountAttributeName, count)); }
         
         protected override XElement GetDynamicTypeState(XElement state, Type type)
         {
@@ -39,13 +44,13 @@ namespace LazyData.Xml
         
         public override DataObject Serialize(object data)
         {
-            var element = new XElement("Container");
+            var element = new XElement(ContainerElementName);
             var dataType = data.GetType();
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, element);
 
-            var typeElement = new XElement("Type", dataType.GetPersistableName());
-            element.Add(typeElement);
+            var typeAttribute = new XAttribute(TypeAttributeName, dataType.GetPersistableName());
+            element.Add(typeAttribute);
             
             var xmlString = element.ToString();
             return new DataObject(xmlString);
@@ -64,7 +69,7 @@ namespace LazyData.Xml
 
         protected override void SerializeCollectionElement<T>(CollectionMapping collectionMapping, T element, XElement state)
         {
-            var newElement = new XElement("CollectionElement");
+            var newElement = new XElement(CollectionElementName);
             state.Add(newElement);
 
             if (element == null)
@@ -87,13 +92,13 @@ namespace LazyData.Xml
 
         protected override void SerializeDictionaryKeyValuePair(DictionaryMapping dictionaryMapping, IDictionary dictionary, object key, XElement state)
         {
-            var keyElement = new XElement("Key");
+            var keyElement = new XElement(KeyElementName);
             SerializeDictionaryKey(dictionaryMapping, key, keyElement);
 
-            var valueElement = new XElement("Value");
+            var valueElement = new XElement(ValueElementName);
             SerializeDictionaryValue(dictionaryMapping, dictionary[key], valueElement);
 
-            var keyValuePairElement = new XElement("KeyValuePair");
+            var keyValuePairElement = new XElement(KeyValuePairElementName);
             keyValuePairElement.Add(keyElement, valueElement);
             state.Add(keyValuePairElement);
         }

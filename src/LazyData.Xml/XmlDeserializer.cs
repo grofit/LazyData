@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using LazyData.Mappings;
 using LazyData.Mappings.Types;
@@ -19,19 +20,19 @@ namespace LazyData.Xml
         {}
 
         protected override bool IsDataNull(XElement state)
-        { return state.Attribute("IsNull") != null; }
+        { return state.Attribute(XmlSerializer.NullAttributeName) != null; }
 
         protected override bool IsObjectNull(XElement state)
         { return IsDataNull(state); }
 
         protected override int GetCountFromState(XElement state)
-        { return int.Parse(state.Attribute("Count").Value); }
+        { return int.Parse(state.Attribute(XmlSerializer.CountAttributeName).Value); }
         
         public override object Deserialize(DataObject data)
         {
             var xDoc = XDocument.Parse(data.AsString);
-            var containerElement = xDoc.Element("Container");
-            var typeName = containerElement.Element("Type").Value;
+            var containerElement = xDoc.Element(XmlSerializer.ContainerElementName);
+            var typeName = containerElement.Attribute(XmlSerializer.TypeAttributeName).Value;
             var type = TypeCreator.LoadType(typeName);
             var typeMapping = MappingRegistry.GetMappingFor(type);
 
@@ -43,8 +44,8 @@ namespace LazyData.Xml
         public override void DeserializeInto(DataObject data, object existingInstance)
         {
             var xDoc = XDocument.Parse(data.AsString);
-            var containerElement = xDoc.Element("Container");
-            var typeName = containerElement.Element("Type").Value;
+            var containerElement = xDoc.Element(XmlSerializer.ContainerElementName);
+            var typeName = containerElement.Attribute(XmlSerializer.TypeAttributeName).Value;
             var type = TypeCreator.LoadType(typeName);
             var typeMapping = MappingRegistry.GetMappingFor(type);
             
@@ -65,7 +66,7 @@ namespace LazyData.Xml
 
             for (var i = 0; i < count; i++)
             {
-                var collectionElement = state.Elements("CollectionElement").ElementAt(i);
+                var collectionElement = state.Elements(XmlSerializer.CollectionElementName).ElementAt(i);
                 var elementInstance = DeserializeCollectionElement(mapping, collectionElement);
 
                 if (collectionInstance.IsFixedSize)
@@ -89,16 +90,16 @@ namespace LazyData.Xml
 
             for (var i = 0; i < count; i++)
             {
-                var keyValuePairElement = state.Elements("KeyValuePair").ElementAt(i);
+                var keyValuePairElement = state.Elements(XmlSerializer.KeyValuePairElementName).ElementAt(i);
                 DeserializeDictionaryKeyValuePair(mapping, dictionary, keyValuePairElement);
             }
         }
 
         protected override void DeserializeDictionaryKeyValuePair(DictionaryMapping mapping, IDictionary dictionary, XElement state)
         {
-            var keyElement = state.Element("Key");
+            var keyElement = state.Element(XmlSerializer.KeyElementName);
             var keyInstance = DeserializeDictionaryKey(mapping, keyElement);
-            var valueElement = state.Element("Value");
+            var valueElement = state.Element(XmlSerializer.ValueElementName);
             var valueInstance = DeserializeDictionaryValue(mapping, valueElement);
             dictionary.Add(keyInstance, valueInstance);
         }

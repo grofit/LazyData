@@ -12,8 +12,8 @@ namespace LazyData.Json
 {
    public class JsonSerializer : GenericSerializer<JToken, JToken>, IJsonSerializer
     {
-        public const string TypeField = "Type";
-        public const string DataField = "Data";
+        public const string TypeField = "@Type";
+        public const string DataField = "@Data";
         public const string KeyField = "Key";
         public const string ValueField = "Value";
 
@@ -44,7 +44,7 @@ namespace LazyData.Json
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, node);
 
-            var typeElement = new JProperty("Type", dataType.GetPersistableName());
+            var typeElement = new JProperty(TypeField, dataType.GetPersistableName());
             node.Add(typeElement);
             
             var xmlString = node.ToString();

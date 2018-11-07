@@ -115,9 +115,9 @@ namespace LazyData.Json
 
         protected override void DeserializeDictionaryKeyValuePair(DictionaryMapping mapping, IDictionary dictionary, JToken state)
         {
-            var keyElement = state["Key"];
+            var keyElement = state[JsonSerializer.KeyField];
             var keyInstance = DeserializeDictionaryKey(mapping, keyElement);
-            var valueElement = state["Value"];
+            var valueElement = state[JsonSerializer.ValueField];
             var valueInstance = DeserializeDictionaryValue(mapping, valueElement);
             dictionary.Add(keyInstance, valueInstance);
         }

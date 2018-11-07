@@ -42,7 +42,7 @@ namespace LazyData.Yaml
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, node);
 
-            var typeElement = new JProperty("Type", dataType.GetPersistableName());
+            var typeElement = new JProperty(TypeField, dataType.GetPersistableName());
             node.Add(typeElement);
 
             var temporaryObject = ConvertJTokenToObject(node);
