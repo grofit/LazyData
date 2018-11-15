@@ -14,6 +14,12 @@ namespace LazyData.Tests.Models
 
         [PersistData]
         public IList<object> DynamicList { get; set; }
+        
+        [PersistData]
+        public object[] DynamicArray { get; set; }
+        
+        [PersistData]
+        public IEnumerable<object> DynamicEnumerable { get; set; }
 
         [PersistData]
         public IDictionary<object, object> DynamicDictionary { get; set; }

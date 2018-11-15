@@ -108,10 +108,22 @@ namespace LazyData.Tests.Helpers
             model.DynamicPrimitiveProperty = 12;
 
             model.DynamicList = new List<object>();
-            model.DynamicList.Add(new E() { IntValue = 22 });
-            model.DynamicList.Add(new C() { FloatValue = 25 });
+            model.DynamicList.Add(new E { IntValue = 22 });
+            model.DynamicList.Add(new C { FloatValue = 25 });
             model.DynamicList.Add(20);
 
+            model.DynamicArray = new object[]
+            {
+                new E { IntValue = 12 },
+                new C { FloatValue = 54.2f }
+            };
+
+            model.DynamicEnumerable = new object[]
+            {
+                new E { IntValue = 45 },
+                new C { FloatValue = 22.7f }
+            };
+            
             model.DynamicDictionary = new Dictionary<object, object>();
             model.DynamicDictionary.Add("key1", 62);
             model.DynamicDictionary.Add(new E{IntValue = 99}, 54);

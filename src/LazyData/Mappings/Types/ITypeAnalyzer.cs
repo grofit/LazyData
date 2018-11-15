@@ -5,7 +5,7 @@ namespace LazyData.Mappings.Types
 {
     public interface ITypeAnalyzer
     {
-        bool IsGenericList(Type type);
+        bool IsGenericCollection(Type type);
         bool IsGenericDictionary(Type type);
         bool IsDynamicType(Type type);
         bool IsDynamicType(PropertyInfo propertyInfo);

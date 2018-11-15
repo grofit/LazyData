@@ -17,7 +17,7 @@ namespace LazyData.PerformanceTests
             Add(MemoryDiagnoser.Default);
 
             var job = Job.ShortRun.WithLaunchCount(1)
-                .WithTargetCount(1)
+                .WithIterationCount(1)
                 .WithWarmupCount(1)
                 .With(Runtime.Core)
                 .With(Platform.X64);

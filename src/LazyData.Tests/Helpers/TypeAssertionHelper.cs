@@ -160,7 +160,7 @@ namespace LazyData.Tests.Helpers
 
         public static void AssertDynamicModel(IList<Mapping> mappings)
         {
-            Assert.Equal(4, mappings.Count);
+            Assert.Equal(6, mappings.Count);
 
             var dynamicNestedPropertyMapping = mappings[0] as NestedMapping;
             Assert.NotNull(dynamicNestedPropertyMapping);
@@ -183,8 +183,24 @@ namespace LazyData.Tests.Helpers
             Assert.True(dynamicListMapping.IsElementDynamicType);
             Assert.Empty(dynamicListMapping.InternalMappings);
             Assert.Equal("DynamicList", dynamicListMapping.LocalName);
+            
+            var dynamicArrayMapping = mappings[3] as CollectionMapping;
+            Assert.NotNull(dynamicArrayMapping);
+            Assert.IsRuntimeType<object[]>(dynamicArrayMapping.Type);
+            Assert.IsRuntimeType<object>(dynamicArrayMapping.CollectionType);
+            Assert.True(dynamicArrayMapping.IsElementDynamicType);
+            Assert.Empty(dynamicArrayMapping.InternalMappings);
+            Assert.Equal("DynamicArray", dynamicArrayMapping.LocalName);
+            
+            var dynamicEnumerableMapping = mappings[4] as CollectionMapping;
+            Assert.NotNull(dynamicEnumerableMapping);
+            Assert.IsRuntimeType<IEnumerable<object>>(dynamicEnumerableMapping.Type);
+            Assert.IsRuntimeType<object>(dynamicEnumerableMapping.CollectionType);
+            Assert.True(dynamicEnumerableMapping.IsElementDynamicType);
+            Assert.Empty(dynamicEnumerableMapping.InternalMappings);
+            Assert.Equal("DynamicEnumerable", dynamicEnumerableMapping.LocalName);
 
-            var dynamicDictionaryMapping = mappings[3] as DictionaryMapping;
+            var dynamicDictionaryMapping = mappings[5] as DictionaryMapping;
             Assert.NotNull(dynamicDictionaryMapping);
             Assert.IsRuntimeType<IDictionary<object, object>>(dynamicDictionaryMapping.Type);
             Assert.IsRuntimeType<object>(dynamicDictionaryMapping.KeyType);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -29,9 +30,9 @@ namespace LazyData.Mappings.Types
             Configuration = configuration ?? new TypeAnalyzerConfiguration();
         }
 
-        public bool IsGenericList(Type type)
-        { return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>); }
-
+        public bool IsGenericCollection(Type type)
+        { return type.IsGenericType && type.GetGenericTypeDefinition().GetInterface(nameof(IEnumerable)) != null; }
+        
         public bool IsGenericDictionary(Type type)
         { return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>); }
 
