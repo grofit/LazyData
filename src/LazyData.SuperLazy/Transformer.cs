@@ -54,39 +54,39 @@ namespace LazyData.SuperLazy
         public static T FromXml<T>(string xml) where T : new()
         { return _xmlDeserializer.Deserialize<T>(new DataObject(xml)); }
 
-        public static byte[] FromXmlToBinary(string xml)
+        public static byte[] FromXmlToBinary<T>(string xml)
         {
-            var obj = _xmlDeserializer.Deserialize(new DataObject(xml));
+            var obj = _xmlDeserializer.Deserialize(typeof(T), new DataObject(xml));
             return _binarySerializer.Serialize(obj).AsBytes;
         }
         
-        public static byte[] FromJsonToBinary(string json)
+        public static byte[] FromJsonToBinary<T>(string json)
         {
-            var obj = _jsonDeserializer.Deserialize(new DataObject(json));
+            var obj = _jsonDeserializer.Deserialize(typeof(T), new DataObject(json));
             return _binarySerializer.Serialize(obj).AsBytes;
         }
         
-        public static string FromJsonToXml(string json)
+        public static string FromJsonToXml<T>(string json)
         {
-            var obj = _jsonDeserializer.Deserialize(new DataObject(json));
+            var obj = _jsonDeserializer.Deserialize(typeof(T), new DataObject(json));
             return _xmlSerializer.Serialize(obj).AsString;
         }
         
-        public static string FromBinaryToXml(byte[] binary)
+        public static string FromBinaryToXml<T>(byte[] binary)
         {
-            var obj = _binaryDeserializer.Deserialize(new DataObject(binary));
+            var obj = _binaryDeserializer.Deserialize(typeof(T), new DataObject(binary));
             return _xmlSerializer.Serialize(obj).AsString;
         }
         
-        public static string FromXmlToJson(string json)
+        public static string FromXmlToJson<T>(string json)
         {
-            var obj = _xmlDeserializer.Deserialize(new DataObject(json));
+            var obj = _xmlDeserializer.Deserialize(typeof(T), new DataObject(json));
             return _jsonSerializer.Serialize(obj).AsString;
         }
         
-        public static string FromBinaryToJson(byte[] binary)
+        public static string FromBinaryToJson<T>(byte[] binary)
         {
-            var obj = _binaryDeserializer.Deserialize(new DataObject(binary));
+            var obj = _binaryDeserializer.Deserialize(typeof(T), new DataObject(binary));
             return _jsonSerializer.Serialize(obj).AsString;
         }
     }

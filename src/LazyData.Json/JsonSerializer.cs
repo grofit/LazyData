@@ -44,9 +44,6 @@ namespace LazyData.Json
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, node);
 
-            var typeElement = new JProperty(TypeField, dataType.GetPersistableName());
-            node.Add(typeElement);
-            
             var xmlString = node.ToString();
             return new DataObject(xmlString);
         }

@@ -36,11 +36,9 @@ namespace LazyData.Json
         protected override JToken GetDynamicTypeDataFromState(JToken state)
         { return state[JsonSerializer.DataField]; }
         
-        public override object Deserialize(DataObject data)
+        public override object Deserialize(Type type, DataObject data)
         {
             var jsonData = JObject.Parse(data.AsString);
-            var typeName = jsonData[JsonSerializer.TypeField].ToString();
-            var type = TypeCreator.LoadType(typeName);
             var typeMapping = MappingRegistry.GetMappingFor(type);
             var instance = Activator.CreateInstance(type);
             
@@ -51,9 +49,7 @@ namespace LazyData.Json
         public override void DeserializeInto(DataObject data, object existingInstance)
         {
             var jsonData = JObject.Parse(data.AsString);
-            var typeName = jsonData[JsonSerializer.TypeField].ToString();
-            var type = TypeCreator.LoadType(typeName);
-            var typeMapping = MappingRegistry.GetMappingFor(type);
+            var typeMapping = MappingRegistry.GetMappingFor(existingInstance.GetType());
             
             Deserialize(typeMapping.InternalMappings, existingInstance, jsonData);
         }

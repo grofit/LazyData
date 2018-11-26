@@ -24,7 +24,7 @@ namespace LazyData.Serialization
             CustomPrimitiveHandlers = customPrimitiveHandlers ?? new IPrimitiveHandler<TSerializeState, TDeserializeState>[0];
         }
 
-        public abstract object Deserialize(DataObject data);
+        public abstract object Deserialize(Type type, DataObject data);
         public abstract void DeserializeInto(DataObject data, object existingInstance);
 
         protected abstract bool IsDataNull(TDeserializeState state);
@@ -38,7 +38,7 @@ namespace LazyData.Serialization
         { DeserializeInto(data, (object)existingInstance); }
 
         public virtual T Deserialize<T>(DataObject data) where T : new()
-        { return (T)Deserialize(data); }
+        { return (T)Deserialize(typeof(T), data); }
 
         protected virtual object DeserializeDefaultPrimitive(Type type, TDeserializeState state)
         {

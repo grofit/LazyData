@@ -1,6 +1,7 @@
 ﻿using System;
 using LazyData.SuperLazy;
 using LazyData.Tests.Helpers;
+using LazyData.Tests.Models;
 using Xunit;
 using Xunit.Abstractions;
 using Assert = LazyData.Tests.Extensions.AssertExtensions;
@@ -24,15 +25,15 @@ namespace LazyData.Tests.SanityTests
 
             testOutputHelper.WriteLine("Outputted Json: ");
             testOutputHelper.WriteLine(expectdString);
-            var xml = Transformer.FromJsonToXml(expectdString);
+            var xml = Transformer.FromJsonToXml<ComplexModel>(expectdString);
             
             testOutputHelper.WriteLine("Converted Xml: ");
             testOutputHelper.WriteLine(xml);
-            var binary = Transformer.FromXmlToBinary(xml);
+            var binary = Transformer.FromXmlToBinary<ComplexModel>(xml);
             
             testOutputHelper.WriteLine("Converted Binary: ");
             testOutputHelper.WriteLine(BitConverter.ToString(binary));
-            var json = Transformer.FromBinaryToJson(binary);
+            var json = Transformer.FromBinaryToJson<ComplexModel>(binary);
             
             testOutputHelper.WriteLine("Outputted Json: ");
             testOutputHelper.WriteLine(json);

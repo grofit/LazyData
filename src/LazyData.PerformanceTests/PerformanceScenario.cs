@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using LazyData.Binary;
@@ -48,8 +49,8 @@ namespace LazyData.PerformanceTests
         private DataObject SerializeModel(object model, ISerializer serializer)
         {return serializer.Serialize(model); }
 
-        private void DeserializeModel(DataObject data, IDeserializer serializer)
-        { serializer.Deserialize(data); }
+        private void DeserializeModel(Type type, DataObject data, IDeserializer serializer)
+        { serializer.Deserialize(type, data); }
 
 
         private Person CreatePerson()
@@ -96,7 +97,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _binarySerializer);
-                DeserializeModel(dataObject, _binaryDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _binaryDeserializer);
             }
         }
 
@@ -107,7 +108,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _jsonSerializer);
-                DeserializeModel(dataObject, _jsonDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _jsonDeserializer);
             }
         }
 
@@ -118,7 +119,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _xmlSerializer);
-                DeserializeModel(dataObject, _xmlDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _xmlDeserializer);
             }
         }
 
@@ -127,7 +128,7 @@ namespace LazyData.PerformanceTests
         {
             var model = CreatePersonList();
             var dataObject = SerializeModel(model, _binarySerializer);
-            DeserializeModel(dataObject, _binaryDeserializer);
+            DeserializeModel(typeof(Person), dataObject, _binaryDeserializer);
         }
 
         [Benchmark]
@@ -135,7 +136,7 @@ namespace LazyData.PerformanceTests
         {
             var model = CreatePersonList();
             var dataObject = SerializeModel(model, _jsonSerializer);
-            DeserializeModel(dataObject, _jsonDeserializer);
+            DeserializeModel(typeof(Person), dataObject, _jsonDeserializer);
             
         }
 
@@ -144,7 +145,7 @@ namespace LazyData.PerformanceTests
         {
             var model = CreatePersonList();
             var dataObject = SerializeModel(model, _xmlSerializer);
-            DeserializeModel(dataObject, _xmlDeserializer);            
+            DeserializeModel(typeof(Person), dataObject, _xmlDeserializer);            
         }
 
         [Benchmark]
@@ -154,7 +155,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _binarySerializer);
-                DeserializeModel(dataObject, _binaryDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _binaryDeserializer);
             }
         }
 
@@ -165,7 +166,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _jsonSerializer);
-                DeserializeModel(dataObject, _jsonDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _jsonDeserializer);
             }
         }
 
@@ -176,7 +177,7 @@ namespace LazyData.PerformanceTests
             for (var i = 0; i < Iterations; i++)
             {
                 var dataObject = SerializeModel(model, _xmlSerializer);
-                DeserializeModel(dataObject, _xmlDeserializer);
+                DeserializeModel(typeof(Person), dataObject, _xmlDeserializer);
             }
         }
     }

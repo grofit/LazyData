@@ -48,9 +48,6 @@ namespace LazyData.Xml
             var dataType = data.GetType();
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, element);
-
-            var typeAttribute = new XAttribute(TypeAttributeName, dataType.GetPersistableName());
-            element.Add(typeAttribute);
             
             var xmlString = element.ToString();
             return new DataObject(xmlString);

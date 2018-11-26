@@ -39,7 +39,6 @@ namespace LazyData.Binary
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
-                binaryWriter.Write(typeMapping.Type.GetPersistableName());
                 Serialize(typeMapping.InternalMappings, data, binaryWriter);
                 binaryWriter.Flush();
                 memoryStream.Seek(0, SeekOrigin.Begin);

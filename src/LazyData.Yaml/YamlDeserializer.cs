@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System;
 using LazyData.Json;
 using LazyData.Json.Handlers;
 using LazyData.Mappings.Types;
@@ -33,11 +34,11 @@ namespace LazyData.Yaml
             }
         }
 
-        public override object Deserialize(DataObject data)
+        public override object Deserialize(Type type, DataObject data)
         {
             // This is very unperformant for now, but a foot in the door
             var jsonObject = ConvertYamlToJson(data);
-            return base.Deserialize(jsonObject);
+            return base.Deserialize(type, jsonObject);
         }
 
         public override void DeserializeInto(DataObject data, object existingInstance)

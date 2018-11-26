@@ -28,12 +28,10 @@ namespace LazyData.Xml
         protected override int GetCountFromState(XElement state)
         { return int.Parse(state.Attribute(XmlSerializer.CountAttributeName).Value); }
         
-        public override object Deserialize(DataObject data)
+        public override object Deserialize(Type type, DataObject data)
         {
             var xDoc = XDocument.Parse(data.AsString);
             var containerElement = xDoc.Element(XmlSerializer.ContainerElementName);
-            var typeName = containerElement.Attribute(XmlSerializer.TypeAttributeName).Value;
-            var type = TypeCreator.LoadType(typeName);
             var typeMapping = MappingRegistry.GetMappingFor(type);
 
             var instance = Activator.CreateInstance(typeMapping.Type);
@@ -45,9 +43,7 @@ namespace LazyData.Xml
         {
             var xDoc = XDocument.Parse(data.AsString);
             var containerElement = xDoc.Element(XmlSerializer.ContainerElementName);
-            var typeName = containerElement.Attribute(XmlSerializer.TypeAttributeName).Value;
-            var type = TypeCreator.LoadType(typeName);
-            var typeMapping = MappingRegistry.GetMappingFor(type);
+            var typeMapping = MappingRegistry.GetMappingFor(existingInstance.GetType());
             
             Deserialize(typeMapping.InternalMappings, existingInstance, containerElement);
         }
