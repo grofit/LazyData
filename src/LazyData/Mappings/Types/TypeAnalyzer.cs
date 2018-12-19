@@ -30,11 +30,32 @@ namespace LazyData.Mappings.Types
             Configuration = configuration ?? new TypeAnalyzerConfiguration();
         }
 
-        public bool IsGenericCollection(Type type)
-        { return type.IsGenericType && type.GetGenericTypeDefinition().GetInterface(nameof(IEnumerable)) != null; }
+        public bool HasImplementedGenericCollection(Type type)
+        {
+            return type.GetInterfaces().Any(x => x.IsGenericType && (
+                                                     x.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
+                                                     x.GetGenericTypeDefinition().GetInterface(nameof(IEnumerable)) !=
+                                                     null));
+        }
         
+        public bool IsGenericCollection(Type type)
+        {
+            return type.IsGenericType && (type.GetGenericTypeDefinition().IsAssignableFrom(typeof(ICollection<>)) ||
+                       type.GetGenericTypeDefinition().GetInterface(nameof(IEnumerable)) != null);
+        }
+
+        public bool HasImplementedGenericDictionary(Type type)
+        {
+            return type.GetInterfaces().Any(x => x.IsGenericType && (
+                                                     x.GetGenericTypeDefinition() == typeof(IDictionary<,>) || 
+                                                     x.GetGenericTypeDefinition().GetInterface(nameof(IDictionary)) != null));
+        }
+
         public bool IsGenericDictionary(Type type)
-        { return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>); }
+        {
+            return type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IDictionary<,>) || 
+                                        type.GetGenericTypeDefinition().GetInterface(nameof(IDictionary)) != null); 
+        }
 
         public bool IsDynamicType(Type type)
         { return type.IsAbstract || type.IsInterface || type == typeof(object); }
@@ -43,6 +64,25 @@ namespace LazyData.Mappings.Types
         {
             var typeIsDynamic = IsDynamicType(propertyInfo.PropertyType);
             return typeIsDynamic || propertyInfo.HasAttribute<DynamicTypeAttribute>();
+        }
+
+        public Type[] GetGenericTypes(Type type, Type genericType)
+        {
+            if (type.IsGenericType)
+            { return type.GetGenericArguments(); }
+
+            var proxyType = type.GetInterfaces().SingleOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == genericType);
+            if (proxyType == null) { return new Type[0]; }
+            return proxyType.GetGenericArguments();
+        }
+        
+        public Type GetElementType(Type type)
+        {
+            if (type.IsArray) { return type.GetElementType(); }
+            if (type.IsGenericType){ return type.GetGenericArguments()[0];}
+            
+            var proxyType = type.GetInterfaces().SingleOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+            return proxyType.GetGenericArguments()[0];
         }
 
         public bool HasIgnoredTypes()

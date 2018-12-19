@@ -42,6 +42,10 @@ namespace LazyData.Tests.Helpers
                      new C { FloatValue = 5.2f }
                 }
             };
+            
+            a.CustomList.Add(1);
+            a.CustomList.Add(2);
+            a.CustomList.Add(3);
 
             a.AllTypes = new CommonTypesModel
             {
@@ -58,6 +62,9 @@ namespace LazyData.Tests.Helpers
             a.SimpleDictionary.Add("key1", "some-value");
             a.SimpleDictionary.Add("key2", "some-other-value");
 
+            a.CustomDictionary.Add(1,2);
+            a.CustomDictionary.Add(3,4);
+            
             a.ComplexDictionary.Add(new E { IntValue = 10 }, new C { FloatValue = 32.2f });
 
             return a;

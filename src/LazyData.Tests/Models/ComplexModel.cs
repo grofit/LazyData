@@ -3,6 +3,9 @@ using LazyData.Attributes;
 
 namespace LazyData.Tests.Models
 {
+    public class CustomDictionary : Dictionary<int,int>{}
+    public class CustomList : List<int>{}
+    
     [Persist]
     public class ComplexModel
     {
@@ -19,6 +22,9 @@ namespace LazyData.Tests.Models
         
         [PersistData]
         public IList<string> Stuff { get; set; }
+        
+        [PersistData]
+        public CustomList CustomList { get; set; }
 
         [PersistData]
         public CommonTypesModel AllTypes { get; set; }
@@ -28,12 +34,17 @@ namespace LazyData.Tests.Models
 
         [PersistData]
         public IDictionary<E, C> ComplexDictionary { get; set; }
+        
+        [PersistData]
+        public CustomDictionary CustomDictionary { get; set; }
 
         public ComplexModel()
         {
             Stuff = new List<string>();
             SimpleDictionary = new Dictionary<string, string>();
             ComplexDictionary = new Dictionary<E, C>();
+            CustomDictionary = new CustomDictionary();
+            CustomList = new CustomList();
         }
     }
 }

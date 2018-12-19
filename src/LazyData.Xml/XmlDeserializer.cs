@@ -81,7 +81,7 @@ namespace LazyData.Xml
             }
 
             var count = GetCountFromState(state);
-            var dictionary = TypeCreator.CreateDictionary(mapping.KeyType, mapping.ValueType);
+            var dictionary = CreateDictionaryFromMapping(mapping);
             mapping.SetValue(instance, dictionary);
 
             for (var i = 0; i < count; i++)

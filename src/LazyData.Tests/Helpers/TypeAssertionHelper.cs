@@ -10,7 +10,7 @@ namespace LazyData.Tests.Helpers
     {
         public static void AssertComplexModel(IList<Mapping> mappings)
         {
-            Assert.Equal(7, mappings.Count);
+            Assert.Equal(9, mappings.Count);
 
             var testValueMapping = mappings[0] as PropertyMapping;
             Assert.IsRuntimeType<string>(testValueMapping.Type);
@@ -38,15 +38,23 @@ namespace LazyData.Tests.Helpers
             Assert.Empty(stuffMapping.MetaData);
             Assert.IsRuntimeType<string>(stuffMapping.CollectionType);
             Assert.Equal(0, stuffMapping.InternalMappings.Count);
+            
+            var customListMapping = mappings[4] as CollectionMapping;
+            Assert.IsRuntimeType<CustomList>(customListMapping.Type);
+            Assert.Equal("CustomList", customListMapping.LocalName);
+            Assert.False(customListMapping.IsElementDynamicType);
+            Assert.Empty(customListMapping.MetaData);
+            Assert.IsRuntimeType<int>(customListMapping.CollectionType);
+            Assert.Equal(0, customListMapping.InternalMappings.Count);
 
-            var allTypesMapping = mappings[4] as NestedMapping;
+            var allTypesMapping = mappings[5] as NestedMapping;
             Assert.IsRuntimeType<CommonTypesModel>(allTypesMapping.Type);
             Assert.Equal("AllTypes", allTypesMapping.LocalName);
             Assert.False(allTypesMapping.IsDynamicType);
             Assert.Empty(allTypesMapping.MetaData);
             AssertDModel(allTypesMapping.InternalMappings);
 
-            var simpleDictionaryMapping = mappings[5] as DictionaryMapping;
+            var simpleDictionaryMapping = mappings[6] as DictionaryMapping;
             Assert.IsRuntimeType<IDictionary<string, string>>(simpleDictionaryMapping.Type);
             Assert.Equal("SimpleDictionary", simpleDictionaryMapping.LocalName);
             Assert.False(simpleDictionaryMapping.IsKeyDynamicType);
@@ -56,8 +64,8 @@ namespace LazyData.Tests.Helpers
             Assert.IsRuntimeType<string>(simpleDictionaryMapping.ValueType);
             Assert.Equal(0, simpleDictionaryMapping.KeyMappings.Count);
             Assert.Equal(0, simpleDictionaryMapping.ValueMappings.Count);
-
-            var complexDictionaryMapping = mappings[6] as DictionaryMapping;
+            
+            var complexDictionaryMapping = mappings[7] as DictionaryMapping;
             Assert.IsRuntimeType<IDictionary<E, C>>(complexDictionaryMapping.Type);
             Assert.Equal("ComplexDictionary", complexDictionaryMapping.LocalName);
             Assert.False(complexDictionaryMapping.IsKeyDynamicType);
@@ -69,6 +77,17 @@ namespace LazyData.Tests.Helpers
             Assert.Equal(1, complexDictionaryMapping.ValueMappings.Count);
             AssertEModel(complexDictionaryMapping.KeyMappings);
             AssertCModel(complexDictionaryMapping.ValueMappings);
+            
+            var customDictionaryMapping = mappings[8] as DictionaryMapping;
+            Assert.IsRuntimeType<CustomDictionary>(customDictionaryMapping.Type);
+            Assert.Equal("CustomDictionary", customDictionaryMapping.LocalName);
+            Assert.False(customDictionaryMapping.IsKeyDynamicType);
+            Assert.False(customDictionaryMapping.IsValueDynamicType);
+            Assert.Empty(customDictionaryMapping.MetaData);
+            Assert.IsRuntimeType<int>(customDictionaryMapping.KeyType);
+            Assert.IsRuntimeType<int>(customDictionaryMapping.ValueType);
+            Assert.Equal(0, customDictionaryMapping.KeyMappings.Count);
+            Assert.Equal(0, customDictionaryMapping.ValueMappings.Count);
         }
 
         public static void AssertBModel(IList<Mapping> mappings)

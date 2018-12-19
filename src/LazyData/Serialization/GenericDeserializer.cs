@@ -52,7 +52,18 @@ namespace LazyData.Serialization
             if (mapping.IsArray)
             { return TypeCreator.CreateFixedCollection(mapping.Type, count); }
 
-            return TypeCreator.CreateList(mapping.CollectionType);
+            if(MappingRegistry.TypeMapper.TypeAnalyzer.IsGenericCollection(mapping.Type))
+            { return TypeCreator.CreateList(mapping.CollectionType); }
+
+            return (IList)TypeCreator.Instantiate(mapping.Type);
+        }
+        
+        protected IDictionary CreateDictionaryFromMapping(DictionaryMapping mapping)
+        {
+            if (MappingRegistry.TypeMapper.TypeAnalyzer.IsGenericDictionary(mapping.Type))
+            { return TypeCreator.CreateDictionary(mapping.KeyType, mapping.ValueType); }
+
+            return (IDictionary)TypeCreator.Instantiate(mapping.Type);
         }
 
         protected virtual void DeserializeProperty<T>(PropertyMapping propertyMapping, T instance, TDeserializeState state)
@@ -178,7 +189,7 @@ namespace LazyData.Serialization
             }
 
             var count = GetCountFromState(state);
-            var dictionary = TypeCreator.CreateDictionary(mapping.KeyType, mapping.ValueType);
+            var dictionary = CreateDictionaryFromMapping(mapping);
             mapping.SetValue(instance, dictionary);
 
             for (var i = 0; i < count; i++)

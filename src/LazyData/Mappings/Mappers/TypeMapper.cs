@@ -56,10 +56,13 @@ namespace LazyData.Mappings.Mappers
             if (TypeAnalyzer.IsPrimitiveType(propertyInfo.PropertyType))
             { return CreatePropertyMappingFor(propertyInfo, currentScope); }
             
-            if (TypeAnalyzer.IsGenericDictionary(propertyInfo.PropertyType))
+            if (TypeAnalyzer.IsGenericDictionary(propertyInfo.PropertyType) || 
+                TypeAnalyzer.HasImplementedGenericDictionary(propertyInfo.PropertyType))
             { return CreateDictionaryMappingFor(propertyInfo, currentScope); }
             
-            if (propertyInfo.PropertyType.IsArray || TypeAnalyzer.IsGenericCollection(propertyInfo.PropertyType))
+            if (propertyInfo.PropertyType.IsArray || 
+                TypeAnalyzer.IsGenericCollection(propertyInfo.PropertyType) || 
+                TypeAnalyzer.HasImplementedGenericCollection(propertyInfo.PropertyType))
             { return CreateCollectionMappingFor(propertyInfo, currentScope); }
 
             var possibleType = TypeAnalyzer.GetNullableType(propertyInfo.PropertyType);
@@ -75,8 +78,7 @@ namespace LazyData.Mappings.Mappers
         public virtual CollectionMapping CreateCollectionMappingFor(PropertyInfo propertyInfo, string scope)
         {
             var propertyType = propertyInfo.PropertyType;
-            var isArray = propertyType.IsArray;
-            var collectionType = isArray ? propertyType.GetElementType() : propertyType.GetGenericArguments()[0];
+            var collectionType = TypeAnalyzer.GetElementType(propertyType);
 
             var collectionMapping = new CollectionMapping
             {
@@ -86,7 +88,7 @@ namespace LazyData.Mappings.Mappers
                 Type = propertyInfo.PropertyType,
                 GetValue = (x) => propertyInfo.GetValue(x, null) as IList,
                 SetValue = (x, v) => propertyInfo.SetValue(x, v, null),
-                IsArray = isArray,
+                IsArray = propertyType.IsArray,
                 IsElementDynamicType = TypeAnalyzer.IsDynamicType(collectionType)
             };
 
@@ -99,8 +101,9 @@ namespace LazyData.Mappings.Mappers
         public virtual DictionaryMapping CreateDictionaryMappingFor(PropertyInfo propertyInfo, string scope)
         {
             var propertyType = propertyInfo.PropertyType;
-            var dictionaryTypes = propertyType.GetGenericArguments();
-
+            
+            var dictionaryTypes = TypeAnalyzer.GetGenericTypes(propertyType, typeof(IDictionary<,>));
+            
             var keyType = dictionaryTypes[0];
             var valueType = dictionaryTypes[1];
 
