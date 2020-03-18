@@ -56,37 +56,37 @@ namespace LazyData.SuperLazy
 
         public static byte[] FromXmlToBinary<T>(string xml)
         {
-            var obj = _xmlDeserializer.Deserialize(typeof(T), new DataObject(xml));
+            var obj = _xmlDeserializer.Deserialize(new DataObject(xml), typeof(T));
             return _binarySerializer.Serialize(obj).AsBytes;
         }
         
         public static byte[] FromJsonToBinary<T>(string json)
         {
-            var obj = _jsonDeserializer.Deserialize(typeof(T), new DataObject(json));
+            var obj = _jsonDeserializer.Deserialize(new DataObject(json), typeof(T));
             return _binarySerializer.Serialize(obj).AsBytes;
         }
         
         public static string FromJsonToXml<T>(string json)
         {
-            var obj = _jsonDeserializer.Deserialize(typeof(T), new DataObject(json));
+            var obj = _jsonDeserializer.Deserialize(new DataObject(json), typeof(T));
             return _xmlSerializer.Serialize(obj).AsString;
         }
         
         public static string FromBinaryToXml<T>(byte[] binary)
         {
-            var obj = _binaryDeserializer.Deserialize(typeof(T), new DataObject(binary));
+            var obj = _binaryDeserializer.Deserialize(new DataObject(binary), typeof(T));
             return _xmlSerializer.Serialize(obj).AsString;
         }
         
         public static string FromXmlToJson<T>(string json)
         {
-            var obj = _xmlDeserializer.Deserialize(typeof(T), new DataObject(json));
+            var obj = _xmlDeserializer.Deserialize(new DataObject(json), typeof(T));
             return _jsonSerializer.Serialize(obj).AsString;
         }
         
         public static string FromBinaryToJson<T>(byte[] binary)
         {
-            var obj = _binaryDeserializer.Deserialize(typeof(T), new DataObject(binary));
+            var obj = _binaryDeserializer.Deserialize(new DataObject(binary), typeof(T));
             return _jsonSerializer.Serialize(obj).AsString;
         }
     }

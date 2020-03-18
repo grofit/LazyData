@@ -34,11 +34,11 @@ namespace LazyData.Yaml
             }
         }
 
-        public override object Deserialize(Type type, DataObject data)
+        public override object Deserialize(DataObject data, Type type = null)
         {
-            // This is very unperformant for now, but a foot in the door
+            // This is very un-performant for now, but a foot in the door
             var jsonObject = ConvertYamlToJson(data);
-            return base.Deserialize(type, jsonObject);
+            return base.Deserialize(jsonObject, type);
         }
 
         public override void DeserializeInto(DataObject data, object existingInstance)

@@ -33,12 +33,17 @@ namespace LazyData.Binary
             return state;
         }
 
-        public override DataObject Serialize(object data)
+        public override DataObject Serialize(object data, bool persistType = false)
         {
             var typeMapping = MappingRegistry.GetMappingFor(data.GetType());
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
+                binaryWriter.Write(persistType);
+                
+                if(persistType)
+                { binaryWriter.Write(typeMapping.Type.GetPersistableName()); }
+                
                 Serialize(typeMapping.InternalMappings, data, binaryWriter);
                 binaryWriter.Flush();
                 memoryStream.Seek(0, SeekOrigin.Begin);

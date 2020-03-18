@@ -14,15 +14,18 @@ namespace LazyData.Bson
         public BsonSerializer(IMappingRegistry mappingRegistry, IEnumerable<IJsonPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, customPrimitiveHandlers)
         {}
 
-        public override DataObject Serialize(object data)
+        public override DataObject Serialize(object data, bool persistType = false)
         {
             var node = new JObject();
             var dataType = data.GetType();
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, node);
 
-            var typeElement = new JProperty(TypeField, dataType.GetPersistableName());
-            node.Add(typeElement);
+            if (persistType)
+            {
+                var typeElement = new JProperty(TypeField, dataType.GetPersistableName());
+                node.Add(typeElement);
+            }
             
             using(var memoryStream = new MemoryStream())
             using (var bsonWriter = new BsonWriter(memoryStream))

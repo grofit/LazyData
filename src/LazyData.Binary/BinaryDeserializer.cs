@@ -50,11 +50,19 @@ namespace LazyData.Binary
         protected override int GetCountFromState(BinaryReader state)
         { return state.ReadInt32(); }
 
-        public override object Deserialize(Type type, DataObject data)
+        public override object Deserialize(DataObject data, Type type = null)
         {
             using (var memoryStream = new MemoryStream(data.AsBytes))
             using (var reader = new BinaryReader(memoryStream))
             {
+                var containsType = reader.ReadBoolean();
+                if (containsType)
+                {
+                    var typeName = reader.ReadString();
+                    if(type == null)
+                    { type = TypeCreator.LoadType(typeName); }
+                }
+                
                 var typeMapping = MappingRegistry.GetMappingFor(type);
                 var instance = Activator.CreateInstance(type);
                 Deserialize(typeMapping.InternalMappings, instance, reader);
@@ -67,6 +75,9 @@ namespace LazyData.Binary
             using (var memoryStream = new MemoryStream(data.AsBytes))
             using (var reader = new BinaryReader(memoryStream))
             {
+                var containsType = reader.ReadBoolean();
+                if (containsType) { reader.ReadString(); }
+                
                 var typeMapping = MappingRegistry.GetMappingFor(existingInstance.GetType());
                 Deserialize(typeMapping.InternalMappings, existingInstance, reader);
             }

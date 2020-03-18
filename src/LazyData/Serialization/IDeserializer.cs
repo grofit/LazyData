@@ -4,7 +4,7 @@ namespace LazyData.Serialization
 {
     public interface IDeserializer
     {
-        object Deserialize(Type type, DataObject data);
+        object Deserialize(DataObject data, Type type = null);
         T Deserialize<T>(DataObject data) where T : new();
 
         void DeserializeInto(DataObject data, object existingInstance);

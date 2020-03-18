@@ -42,12 +42,18 @@ namespace LazyData.Xml
             return state;
         }
         
-        public override DataObject Serialize(object data)
+        public override DataObject Serialize(object data, bool persistType = false)
         {
             var element = new XElement(ContainerElementName);
             var dataType = data.GetType();
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, element);
+
+            if (persistType)
+            {
+                var typeAttribute = new XAttribute(TypeAttributeName, dataType.GetPersistableName());	
+                element.Add(typeAttribute);
+            }
             
             var xmlString = element.ToString();
             return new DataObject(xmlString);

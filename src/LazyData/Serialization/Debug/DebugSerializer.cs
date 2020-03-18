@@ -14,7 +14,7 @@ namespace LazyData.Serialization.Debug
             MappingRegistry = mappingRegistry;
         }
 
-        public DataObject Serialize(object data)
+        public DataObject Serialize(object data, bool persistType = false)
         {
             var output = new StringBuilder();
             var typeMapping = MappingRegistry.GetMappingFor(data.GetType());

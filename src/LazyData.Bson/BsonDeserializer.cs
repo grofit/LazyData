@@ -15,7 +15,7 @@ namespace LazyData.Bson
         public BsonDeserializer(IMappingRegistry mappingRegistry, ITypeCreator typeCreator, IEnumerable<IJsonPrimitiveHandler> customPrimitiveHandlers = null) : base(mappingRegistry, typeCreator, customPrimitiveHandlers)
         {}
 
-        public override object Deserialize(Type type, DataObject data)
+        public override object Deserialize(DataObject data, Type type = null)
         {
             JObject jsonData;
             using(var memoryStream = new MemoryStream(data.AsBytes))
@@ -23,7 +23,13 @@ namespace LazyData.Bson
             {
                 jsonData = (JObject)JToken.ReadFrom(bsonReader);
             }
-            
+
+            if (type == null)
+            {
+                var typeName = jsonData[JsonSerializer.TypeField].ToString();
+                type = TypeCreator.LoadType(typeName);
+            }
+
             var typeMapping = MappingRegistry.GetMappingFor(type);
             var instance = Activator.CreateInstance(type);
             

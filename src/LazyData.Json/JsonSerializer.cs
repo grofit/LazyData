@@ -37,12 +37,18 @@ namespace LazyData.Json
             return state[DataField] = new JObject();
         }
         
-        public override DataObject Serialize(object data)
+        public override DataObject Serialize(object data, bool persistType = false)
         {
             var node = new JObject();
             var dataType = data.GetType();
             var typeMapping = MappingRegistry.GetMappingFor(dataType);
             Serialize(typeMapping.InternalMappings, data, node);
+
+            if (persistType)
+            {
+                var typeElement = new JProperty(TypeField, dataType.GetPersistableName());	
+                node.Add(typeElement);
+            }
 
             var xmlString = node.ToString();
             return new DataObject(xmlString);

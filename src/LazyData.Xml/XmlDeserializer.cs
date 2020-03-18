@@ -27,11 +27,19 @@ namespace LazyData.Xml
 
         protected override int GetCountFromState(XElement state)
         { return int.Parse(state.Attribute(XmlSerializer.CountAttributeName).Value); }
-        
-        public override object Deserialize(Type type, DataObject data)
+
+
+        public override object Deserialize(DataObject data, Type type = null)
         {
             var xDoc = XDocument.Parse(data.AsString);
             var containerElement = xDoc.Element(XmlSerializer.ContainerElementName);
+
+            if (type == null)
+            {
+                var typeName = containerElement.Attribute(XmlSerializer.TypeAttributeName).Value;
+                type = TypeCreator.LoadType(typeName);
+            }
+            
             var typeMapping = MappingRegistry.GetMappingFor(type);
 
             var instance = Activator.CreateInstance(typeMapping.Type);

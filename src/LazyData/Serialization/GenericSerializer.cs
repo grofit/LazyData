@@ -20,7 +20,7 @@ namespace LazyData.Serialization
             CustomPrimitiveHandlers = customPrimitiveHandlers ?? new IPrimitiveHandler<TSerializeState, TDeserializeState>[0];
         }
 
-        public abstract DataObject Serialize(object data);
+        public abstract DataObject Serialize(object data, bool persistType = false);
 
         protected abstract TSerializeState GetDynamicTypeState(TSerializeState state, Type type);
 
