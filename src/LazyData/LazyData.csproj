@@ -9,5 +9,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <Description>Fast serializer supporting multiple formats targetting game developers</Description>
     <PackageTags>serialization game-development json xml binary</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>

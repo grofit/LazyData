@@ -10,7 +10,16 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <Description>Bson serializer for use with LazyData</Description>
         <PackageTags>serialization game-development bson</PackageTags>
-    </PropertyGroup>
+    
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
     <ItemGroup>
       <ProjectReference Include="..\LazyData.Json\LazyData.Json.csproj" />

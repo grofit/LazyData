@@ -9,7 +9,15 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <Description>A super lazy helper class to statically access serializers</Description>
     <PackageTags>serialization game-development json xml binary</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\LazyData.Binary\LazyData.Binary.csproj" />
     <ProjectReference Include="..\LazyData.Json\LazyData.Json.csproj" />
