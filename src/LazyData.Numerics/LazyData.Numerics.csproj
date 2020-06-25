@@ -10,7 +10,15 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <Description>Add default handling for System.Numerics.Vectors</Description>
     <PackageTags>serialization game-development json xml binary</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\LazyData.Binary\LazyData.Binary.csproj" />
